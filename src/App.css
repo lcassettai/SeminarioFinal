@@ -1,0 +1,47 @@
+:root{
+    --charcoal: #264653ff;
+    --persian-green: #0f766e;
+    --maize-crayola: #e9c46aff;
+    --sandy-brown: #f4a261ff;
+    --burnt-sienna: #e76f51ff;
+}
+
+.input-text-lg,.input-password-lg{
+    display: inline-block;
+    width: 100%;
+    padding:0.75rem;
+    border:1px solid;
+    border-radius: 0.25rem;
+    color: rgb(55 65 81 / var(--tw-text-opacity));
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 400;
+    background-color: #fff;
+    border-color: rgb(209 213 219);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-text-lg:focus{
+    outline: none !important;
+    border:2px solid var(--sandy-brown) !important;
+}
+
+.button-lg{
+    display: inline-block;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    color:white;
+    transition-duration: 150ms;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    background-color:var(--persian-green);
+    line-height: 1.25;
+    cursor: pointer;
+    width: 100%;
+    margin:0px !important;
+}
