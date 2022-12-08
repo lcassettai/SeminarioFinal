@@ -1,6 +1,7 @@
 import Titulo from '../../components/Titulo';
 import Logo from '../../assets/img/logo.svg';
 import './Login.css';
+import {Link} from 'react-router-dom';
 
 export default function Login() {
     return (
@@ -21,12 +22,12 @@ export default function Login() {
                     </div>
                     <a href="#" className="mb-4 font-bold font-center text-sky-600 text-left w-full inline-block font-sm" >¿Olvidaste tu clave?</a>
                     <div className="flex space-x-4 justify-center mt-2 flex-col">
-                    <button
-                        type="button"
-                        className="button-lg">
-                        Iniciar Sesion
-                    </button>
-                    <a href="#" className="mt-5 font-bold font-center text-sky-600 text-center">Crear una cuenta nueva</a>
+                        <button
+                            type="button"
+                            className="button-lg">
+                            Iniciar Sesion
+                        </button>
+                        <Link to="/registro" className="mt-5 font-bold font-center text-sky-600 text-center">Crear una cuenta nueva</Link>
                     </div>  
                 </div> 
             </div>
