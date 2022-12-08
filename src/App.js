@@ -8,6 +8,7 @@ function App() {
     <div className="App">
         <div className="">
           <Routes>
+            <Route path="/" element={<Login/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/registro" element={<Registro/>}/>
             <Route path="*" element={<h1>404 Not found</h1>}/>
