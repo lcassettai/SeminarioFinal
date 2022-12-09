@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
-import Logo from '../../assets/img/logo.svg';
+import Logo from '../assets/img/logo.svg';
 import { Link } from 'react-router-dom';
 
 

@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import NavMenu from '../layout/NavMenu';
+import NavMenu from '../../layout/NavMenu';
 import './menuHome.css';
 import { TbHandClick } from "react-icons/tb";
 import { BiQrScan, BiSearchAlt} from "react-icons/bi";
