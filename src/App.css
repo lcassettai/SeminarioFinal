@@ -50,3 +50,25 @@ body{
     width: 100%;
     margin:0px !important;
 }
+
+.button-lg-cancelar{
+    display: inline-block;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    color:white;
+    transition-duration: 150ms;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    background-color:var(--burnt-sienna);
+    line-height: 1.25;
+    cursor: pointer;
+    width: 100%;
+    margin:0px !important;
+}
+
+.alto-maximo{
+    min-height: 80vh !important;
+}
