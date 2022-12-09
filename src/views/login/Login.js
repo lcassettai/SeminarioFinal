@@ -22,11 +22,13 @@ export default function Login() {
                     </div>
                     <a href="#" className="mb-4 font-bold font-center text-sky-600 text-left w-full inline-block font-sm" >¿Olvidaste tu clave?</a>
                     <div className="flex space-x-4 justify-center mt-2 flex-col">
-                        <button
-                            type="button"
-                            className="button-lg">
-                            Iniciar Sesion
-                        </button>
+                        <Link to="/menuHome">
+                            <button
+                                type="button"
+                                className="button-lg">
+                                Iniciar Sesion
+                            </button>
+                        </Link>
                         <Link to="/registro" className="mt-5 font-bold font-center text-sky-600 text-center">Crear una cuenta nueva</Link>
                     </div>  
                 </div> 

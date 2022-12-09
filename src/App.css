@@ -6,6 +6,11 @@
     --burnt-sienna: #e76f51ff;
 }
 
+body{
+    margin:0px !important;
+    padding:0px !important;
+}
+
 .input-text-lg,.input-password-lg{
     display: inline-block;
     width: 100%;
