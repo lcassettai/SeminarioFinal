@@ -12,7 +12,7 @@ const Estrellas = (props) => {
 
     const estrellasDibujadas = estrellasArray.map((estrella) => estrella);
 
-    const className= "flex flex-row " + props.class
+    const className= "flex flex-row  text-yellow-500 " + props.className
     return <>
         <div className={className}>
             {estrellasDibujadas}

@@ -1,45 +1,23 @@
 import NavMenu from '../../layout/NavMenu';
-import Restaurante from '../../components/restaurante/Restaurante';
+import ItemRestaurante from '../../components/restaurante/ItemRestaurante';
 import {Link} from 'react-router-dom';
 import { useState } from 'react';
-
-const listadoInicial = [
-    {
-        nombre: "El tano",
-        estrellas: Math.floor(Math.random() * 6),
-    },
-    {
-        nombre: "El Rancho",
-        estrellas: Math.floor(Math.random() * 6),
-    },
-    {
-        nombre: "Los pinos",
-        estrellas: Math.floor(Math.random() * 6),
-    },
-    {
-        nombre: "La rueda",
-        estrellas: Math.floor(Math.random() * 6),
-    },
-    {
-        nombre: "Vladimir resto",
-        estrellas: Math.floor(Math.random() * 6),
-    }
-];
+import { listadoInicialRestaurantes } from '../../assets/datosPruebas'
 
 const Restaurantes = () => {
-    const [listadoRestaurantes,setListado] = useState(listadoInicial);
+    const [listadoRestaurantes,setListado] = useState(listadoInicialRestaurantes);
 
     const filtrarListado = (event) => {
-        let restaurantesFiltrados = listadoInicial.filter(({nombre}) => {
+        let restaurantesFiltrados = listadoInicialRestaurantes.filter(({nombre}) => {
             return nombre.toLowerCase().includes(event.target.value.toLowerCase())
         })
 
         setListado(restaurantesFiltrados);
     }
 
-    const mostrarRestaurantes = listadoRestaurantes.map((restaurante,i) => {
-        return <Link to="/login" >
-            <Restaurante imagenPortada="/img/demo-restaurante-1.jpg" estrellas={restaurante.estrellas} nombre={restaurante.nombre} />
+    const mostrarRestaurantes = listadoRestaurantes.map((restaurante) => {
+        return <Link to={`/restaurantes/${restaurante.id}`}  key={restaurante.id} >
+            <ItemRestaurante imagenPortada={`/img/${restaurante.imagen}`} estrellas={restaurante.estrellas} nombre={restaurante.nombre} />
         </Link>
     });
    
