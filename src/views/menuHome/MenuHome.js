@@ -16,7 +16,7 @@ const MenuHome = () => {
                     <Link to="/codigo" className="button-lg text-2xl uppercase"><TbHandClick className="inline-block mr-3 text-3xl" />Ingresar codigo</Link>                    
                  </div>
                  <div className="w-full mt-10 text-2xl">
-                    <Link className="button-lg uppercase"><BiSearchAlt className="inline-block mr-3 text-3xl" />Buscar Restaurate</Link>                    
+                    <Link to="/restaurantes" className="button-lg uppercase"><BiSearchAlt className="inline-block mr-3 text-3xl" />Buscar Restaurate</Link>                    
                  </div>
             </div>
         </>
