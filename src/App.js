@@ -6,6 +6,8 @@ import Codigo from './views/codigo/Codigo'
 import Restaurantes from './views/restaurantes/Restaurantes'
 import Restaurante from './views/restaurantes/Restaurante'
 import {Route,Routes} from 'react-router-dom';
+import EscanearQR from './views/escanearQR/EscanearQR';
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Login/>}/>
             <Route path="/menuHome" element={<MenuHome/>}/>
+            <Route path="/escanearQR" element={<EscanearQR/>}/>
             <Route path="/codigo" element={<Codigo/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/registro" element={<Registro/>}/>
