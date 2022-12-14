@@ -10,7 +10,7 @@ const MenuHome = () => {
             <NavMenu />
             <div className="grid grid-cols-1 content-center alto-maximo mx-2">
                 <div className="w-full mt-10 ">
-                    <Link className="button-lg text-2xl uppercase"><BiQrScan className="inline-block mr-3 text-3xl" />Escanear QR</Link>                    
+                    <Link  to="/escanearQR" className="button-lg text-2xl uppercase"><BiQrScan className="inline-block mr-3 text-3xl" />Escanear QR</Link>                    
                  </div>
                  <div className="w-full mt-10">
                     <Link to="/codigo" className="button-lg text-2xl uppercase"><TbHandClick className="inline-block mr-3 text-3xl" />Ingresar codigo</Link>                    
