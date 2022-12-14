@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import NavMenu from "../../layout/NavMenu";
 import { listadoInicialRestaurantes } from '../../assets/datosPruebas'
 import Titulo from "../../components/Titulo";
@@ -22,6 +22,13 @@ const Restaurante = () => {
                 <div className="text-justify pt-4">
                     {restauranteSeleccionado[0].descripcion}
                 </div>
+                <br></br>
+                
+                <Link to="/menuHome">
+                    <button className="button-lg-cancelar">
+                        Volver
+                    </button>
+                </Link>             
         </div>
     </>
 }
