@@ -1,7 +1,73 @@
 import Logo from '../../assets/img/logo.svg';
 import {Link} from 'react-router-dom';
- 
+import {useRef} from 'react';
+import {listadoInicialRestaurantes} from "../../assets/datosPruebas"
+import {filtrarRestaurantesPorCodigo} from '../../util';
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 const Codigo = () => {
+    const MySwal = withReactContent(Swal);
+
+    const navigate = useNavigate();
+    const primerElemento = useRef(null);
+    const segundoElemento = useRef(null);
+    const tercerElemento = useRef(null);
+    const cuartoElemento = useRef(null);
+
+
+    const handleCodigo = () => {
+
+        if( primerElemento.current.value &&
+            segundoElemento.current.value &&
+            tercerElemento.current.value &&
+            cuartoElemento.current.value){
+                let codigoMesa = primerElemento.current.value+segundoElemento.current.value+tercerElemento.current.value+cuartoElemento.current.value ;
+                let restaurante = filtrarRestaurantesPorCodigo(listadoInicialRestaurantes,codigoMesa);
+
+                if(!restaurante.length){
+                    MySwal.fire({
+                        title: <strong>Algo salio mal!</strong>,
+                        html: <i>No se encuntra el codigo</i>,
+                        confirmButtonColor: '#009688',
+                        confirmButtonText: 'Aceptar',
+                        icon: 'error'
+                      })
+                }else{
+                    navigate("/restaurantes/" + restaurante[0].id + '/' +codigoMesa);
+                }
+
+        }else{
+            MySwal.fire({
+                title: <strong>Oops!</strong>,
+                html: <i>Debes llenar todos los campos</i>,
+                confirmButtonColor: '#009688',
+                confirmButtonText: 'Aceptar',
+                icon: 'warning'
+              })
+        }
+    }
+
+    
+    const handleFocus = e => {
+        const numOfFields = 4;
+        const { maxLength, value, name } = e.target;
+        const [fieldName, fieldIndex] = name.split("-");
+
+        if (parseInt(fieldIndex, 10) < numOfFields) {
+            // Get the next input field
+            const nextSibling = document.querySelector(
+                `input[name=codigo-${parseInt(fieldIndex, 10) + 1}]`
+            );
+
+            // If found, focus the next field
+            if (nextSibling !== null) {
+                nextSibling.focus();
+            }
+        }
+    }
+
     return <>
         <div className="grid grid-cols-1 content-center alto-maximo ">
             <div className="w-full">
@@ -12,37 +78,40 @@ const Codigo = () => {
             </div>
             <div className="flex justify-center items-center">
                 <div className="mx-2 w-12">
-                    <input type="text" placeholder="-" className="display-block input-text-lg text-center uppercase">
+                    <input type="text" placeholder="-" maxLength={1} name="codigo-1" className="display-block input-text-lg text-center uppercase" ref={primerElemento} onKeyUp={handleFocus} >
                     </input>
                 </div>
                 <div className="mx-2 w-12">
-                    <input type="text" placeholder="-" className="display-block input-text-lg text-center uppercase">
+                    <input type="text" placeholder="-"  maxLength={1} name="codigo-2" className="display-block input-text-lg text-center uppercase" ref={segundoElemento}  onKeyUp={handleFocus}>
                     </input>
                 </div>
                 <div className="mx-2 w-12">
-                    <input type="text" placeholder="-" className="display-block input-text-lg text-center uppercase">
+                    <input type="text" placeholder="-"  maxLength={1} name="codigo-3" className="display-block input-text-lg text-center uppercase" ref={tercerElemento}  onKeyUp={handleFocus}>
                     </input>
                 </div>
                 <div className="mx-2 w-12">
-                    <input type="text" placeholder="-" className="display-block input-text-lg text-center uppercase">
+                    <input type="text" placeholder="-"  maxLength={1}  name="codigo-4" className="display-block input-text-lg text-center uppercase" ref={cuartoElemento}  onKeyUp={handleFocus}>
                     </input>
                 </div>
             </div>
             <div className="flex flex-row justify-evenly mt-12">
-                        <Link to="/menuHome">
+                        <div>
+                            <Link to="/menuHome">
+                                <button
+                                    type="button"
+                                    className="bg-teal-200 button-lg-cancelar">
+                                    Cancelar
+                                </button>
+                            </Link>
+                        </div>
+                        <div>
                             <button
                                 type="button"
-                                className="bg-teal-200 button-lg-cancelar">
-                                Cancelar
-                            </button>
-                        </Link>
-                        <Link to="/">
-                            <button
-                                type="button"
-                                className="button-lg">
+                                className="button-lg"
+                                onClick={handleCodigo}>
                                 Aceptar
                             </button>
-                        </Link>
+                        </div>
                 </div> 
         </div>
     </>
