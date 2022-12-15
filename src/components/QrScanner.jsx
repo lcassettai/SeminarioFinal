@@ -2,18 +2,15 @@ import { useState } from "react";
 import {QrReader} from "react-qr-reader";
 
 const QrScanner = (props) => {
-  const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
-  const [loadingScan, setLoadingScan] = useState(false);
   const [data, setData] = useState("");
 
   const handleScan = async (scanData) => {
-    setLoadingScan(true);
+
     if (scanData && scanData !== "") {
       console.log(`loaded >>>`, scanData);
       setData(scanData);
       setStartScan(false);
-      setLoadingScan(false);
 
       //Devolvemos el dato escaneado al padre
       props.onScann(scanData);
@@ -36,7 +33,7 @@ const QrScanner = (props) => {
             delay={1000}
             onError={handleError}
             onScan={handleScan}
-            style={{ width: "500px" }}
+            containerStyle={{ width: "450px"}}
             onResult={handleScan}
           />
         </>
