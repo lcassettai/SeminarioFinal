@@ -1,16 +1,10 @@
-// versi "react-qr-reader" 1.0.0. component API harus disesuaikan dengan yg baru
-
 import { useState } from "react";
 import QrReader from "react-qr-scanner";
-import { useNavigate } from "react-router-dom";
 
-
-const QrScanner = () => {
+const QrScanner = (props) => {
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
   const [data, setData] = useState("");
-  const navigate = useNavigate();
-
 
   const handleScan = async (scanData) => {
     setLoadingScan(true);
@@ -20,21 +14,21 @@ const QrScanner = () => {
       setStartScan(false);
       setLoadingScan(false);
 
-      let idMesa = scanData.text.split(":");
-      navigate("/restaurantes/" + idMesa[1]);
-      // setPrecScan(scanData);
+      //Devolvemos el dato escaneado al padre
+      props.onScann(scanData);
     }
   };
+
   const handleError = (err) => {
     console.error(err);
   };
+
   return (
-    
     <div className="App">
       <div className="text-center mt-4 text-red-700 font-bold animate-pulse">
         {startScan ? "Escanenado" : ""}
       </div>
-        {startScan && (
+      {startScan && (
         <>
           <QrReader
             delay={1000}
@@ -43,7 +37,7 @@ const QrScanner = () => {
             style={{ width: "300px" }}
           />
         </>
-      )}     
+      )}
       <br></br>
       <button
         className="button-lg text-2xl uppercase"
@@ -52,8 +46,7 @@ const QrScanner = () => {
         }}
       >
         {startScan ? "Detener Escaner" : "Comenzar a escanear"}
-      </button>     
-     
+      </button>
     </div>
   );
 };
