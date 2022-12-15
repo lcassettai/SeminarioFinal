@@ -38,8 +38,11 @@ const QrScanner = (props) => {
             onScan={handleScan}
             style={{ width: "300px" }}
             onResult={handleScan}
-            className="border border-slate-200 rounded-md	bg-slate-200	"
           />
+          <select onChange={(e) => setSelected(e.target.value)}>
+            <option value={"environment"}>Camara trasera</option>
+            <option value={"user"}>Camara frontal</option>
+          </select>
         </>
       )}
       <br></br>
