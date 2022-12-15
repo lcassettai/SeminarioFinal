@@ -8,7 +8,7 @@ const Restaurante = () => {
     const { idRestaurante } = useParams();
 
     const restauranteSeleccionado = listadoInicialRestaurantes.filter(({id}) => {
-        return id == idRestaurante;
+        return id.toString() === idRestaurante;
     });
 
     return <>
