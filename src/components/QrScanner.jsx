@@ -1,7 +1,8 @@
 import { useState } from "react";
-import QrReader from "react-qr-scanner";
+import {QrReader} from "react-qr-reader";
 
 const QrScanner = (props) => {
+  const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
   const [data, setData] = useState("");
@@ -31,10 +32,13 @@ const QrScanner = (props) => {
       {startScan && (
         <>
           <QrReader
+            facingMode={selected}
             delay={1000}
             onError={handleError}
             onScan={handleScan}
             style={{ width: "300px" }}
+            onResult={handleScan}
+            className="border border-slate-200 rounded-md	bg-slate-200	"
           />
         </>
       )}
