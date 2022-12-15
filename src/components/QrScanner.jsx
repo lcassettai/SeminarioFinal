@@ -32,17 +32,13 @@ const QrScanner = (props) => {
       {startScan && (
         <>
           <QrReader
-            constraints={ {facingMode: selected} }
+            constraints={ {facingMode: 'environment'} }
             delay={1000}
             onError={handleError}
             onScan={handleScan}
-            style={{ width: "300px" }}
+            style={{ width: "500px" }}
             onResult={handleScan}
           />
-          <select onChange={(e) => setSelected(e.target.value)}>
-            <option value={"environment"}>Camara trasera</option>
-            <option value={"user"}>Camara frontal</option>
-          </select>
         </>
       )}
       <br></br>
