@@ -8,7 +8,7 @@ const listadoInicialRestaurantes = [
         mesas : [
             {
                 idMesa : 1,
-                codigo : 'AB1A'
+                codigo : 'AB1A',
             },
             {
                 idMesa : 2,
@@ -32,8 +32,8 @@ const listadoInicialRestaurantes = [
                 codigo : 'AC1A'
             },
             {
-                idMesa : 5,
-                codigo : 'AC2A'
+                idMesa : 5, 
+                codigo : 'AC2A' 
             },
             {
                 idMesa : 6,
