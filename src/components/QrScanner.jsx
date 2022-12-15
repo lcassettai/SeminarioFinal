@@ -32,7 +32,7 @@ const QrScanner = (props) => {
       {startScan && (
         <>
           <QrReader
-            facingMode={selected}
+            constraints={ {facingMode: selected} }
             delay={1000}
             onError={handleError}
             onScan={handleScan}
