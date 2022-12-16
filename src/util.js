@@ -2,7 +2,7 @@ const filtrarRestaurantesPorCodigo = (restaurantes,codigo) => {
     return restaurantes.filter((restaurante) => {
         let encontrado = false;
         restaurante.mesas.forEach((mesa) => {
-            if(mesa.codigo === codigo){
+            if(mesa.codigo.toUpperCase() === codigo.toUpperCase()){
               encontrado = true;
             }
         });

@@ -7,7 +7,7 @@ import { BiQrScan, BiSearchAlt} from "react-icons/bi";
 const MenuHome = () => {
     return (
         <>
-            <NavMenu />
+            <NavMenu text="Home" />
             <div className="grid grid-cols-1 content-center alto-maximo mx-2">
                 <div className="w-full mt-10 ">
                     <Link  to="/escanearQR" className="button-lg text-2xl uppercase"><BiQrScan className="inline-block mr-3 text-3xl" />Escanear QR</Link>                    

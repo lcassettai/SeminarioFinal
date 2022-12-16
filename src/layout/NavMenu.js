@@ -4,8 +4,9 @@ import Logo from '../assets/img/logo.svg';
 import { Link } from 'react-router-dom';
 
 
-function NavMenu() {
+function NavMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
+    const texto = props.text !== undefined ? props.text : 'Restaurante';
     
     return (
         <div>
@@ -19,7 +20,7 @@ function NavMenu() {
                                     src={Logo}
                                     alt="Logo"
                                 />
-                                <h3 className="text-2xl font-bold inline-block pl-4 "> Restaurante</h3>
+                                <h3 className="text-2xl font-bold inline-block pl-4 "> {texto}</h3>
                             </div>
                             <div className="hidden md:block">
                                 <div className="ml-10 flex items-baseline space-x-4">
