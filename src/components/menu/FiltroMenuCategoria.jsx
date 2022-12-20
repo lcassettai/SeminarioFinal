@@ -21,7 +21,7 @@ const FiltroMenuCategoria = (props) => {
     }
 
     return (<>
-        <div id={props.identificador} className={`p-2 mr-2 rounded shadow-md flex flex-justify-center justify-items-center flex-col border filtro-item ${bgColor}`} onClick={handleSelected}>
+        <div id={props.identificador} className={`p-2 mr-2 mb-2 rounded-md shadow-md border border-gray-100  flex flex-justify-center justify-items-center flex-col border filtro-item ${bgColor}`} onClick={handleSelected}>
             <div className={`text-center m-auto p-1 text-2xl ${textColor}`}>
                 {props.children}
             </div>
