@@ -23,7 +23,7 @@ const Restaurantes = () => {
    
 
     return <>
-        <NavMenu />
+        <NavMenu text="Restaurantes" />
         <div className="contenedor">
             <label className="form-label inline-block mb-2 text-lg text-gray-700 font-bold">Buscar restaurante :</label>
             <input onChange={filtrarListado} type="text" className="input-text-lg" placeholder="Restaurante">

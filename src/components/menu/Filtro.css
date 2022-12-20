@@ -1,0 +1,19 @@
+.filtro-item{
+   max-width: 130px;
+   min-width: 90px;
+   min-height: 78px;
+   max-height: 78px;
+   overflow: hidden;
+   font-size:12px
+}
+
+
+/* Ocultar Scrollbar horizontal*/
+.container-snap::-webkit-scrollbar {
+    display: none;
+}
+
+.container-snap {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

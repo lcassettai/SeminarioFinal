@@ -5,7 +5,7 @@ import MenuHome from './views/menuHome/MenuHome'
 import Codigo from './views/codigo/Codigo'
 import Restaurantes from './views/restaurantes/Restaurantes'
 import Restaurante from './views/restaurantes/Restaurante'
-import Mesa from './views/restaurantes/Mesa'
+import Menu from './views/restaurantes/Menu'
 import {Route,Routes} from 'react-router-dom';
 import EscanearQR from './views/escanearQR/EscanearQR';
 
@@ -23,7 +23,7 @@ function App() {
             <Route path="/registro" element={<Registro/>}/>
             <Route path="/restaurantes" element={<Restaurantes/>}/>
             <Route path="/restaurantes/:idRestaurante" element={<Restaurante/>}/>
-            <Route path="/restaurantes/:idRestaurante/:codigoMesa" element={<Mesa/>}/>
+            <Route path="/restaurantes/:idRestaurante/:codigoMesa" element={<Menu/>}/>
             <Route path="*" element={<h1>404 Not found</h1>}/>
           </Routes>
         </div>
