@@ -41,6 +41,7 @@ const Producto = (props) => {
         estrellas={props.estrellas}
         precio={props.precio}
         setProductos={props.setProductos}
+        idProducto={props.idProducto}
         setEstadoModal={setEstadoModal}
       />
     </>

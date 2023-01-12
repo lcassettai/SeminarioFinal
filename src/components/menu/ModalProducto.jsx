@@ -16,6 +16,7 @@ const ModalProducto = ({
   cambiarEstado,
   setProductos,
   setEstadoModal,
+  idProducto
 }) => {
   const [cantidad, setCantidad] = useState(0);
 
@@ -43,16 +44,16 @@ const ModalProducto = ({
   const agregarAlPedido = () => {
     //Habria que cambiar el nombre del producto por un id
     setProductos((prevState) => {
-      let productoEnCarrito = prevState.find((prod) => prod.id === nombre);
+      let productoEnCarrito = prevState.find((prod) => prod.id === idProducto);
 
       return productoEnCarrito
         ? [
-            ...prevState.map((prod) => prod.id === nombre ? {...prod,cantidad:prod.cantidad += cantidad} :{...prod}),
+            ...prevState.map((prod) => prod.id === idProducto ? {...prod,cantidad:prod.cantidad += cantidad} :{...prod}),
           ]
         : [
             ...prevState,
             {
-              id: nombre,
+              id: idProducto,
               nombre: nombre,
               cantidad: cantidad,
               precio: precio

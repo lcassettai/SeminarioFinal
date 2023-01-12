@@ -11,6 +11,50 @@ const Menu = () => {
   const [estadoModalDetalle,setEstadoModalDetalle] = useState(false);
   const [pedido, setProductos] = useState([]);
 
+  const productosEjemplo = [
+    {
+      id:1,
+      nombre:"Hamburguesa",
+      estrellas:3,
+      consumidores:1,
+      precio:1200,
+      imagen:'/img/demo-hamburguesa.png',
+      setProductos:{setProductos}
+    },
+    {
+      id:2,
+      nombre:"Pizza",
+      estrellas:4,
+      consumidores:2,
+      precio:1000,
+      imagen:'/img/demo-pizza.png',
+      setProductos:{setProductos}
+    },
+    {
+      id:3,
+      nombre:"Lomito",
+      estrellas:5,
+      consumidores:1,
+      precio:1900,
+      imagen:'/img/demo-lomito.png',
+      setProductos:{setProductos}
+    },
+  ];
+
+  let productos = productosEjemplo.map((producto) => {
+    //TODO la key debe ser el id del producto
+    return (<Producto
+      key={producto.id}
+      idProducto={producto.id}
+      nombre={producto.nombre}
+      estrellas={producto.estrellas}
+      consumidores={producto.consumidores}
+      precio={producto.precio}
+      imagen={producto.imagen}
+      setProductos={setProductos}
+    />);
+  });
+
   return (
     <>
       <NavMenu text="Menu" />
@@ -32,30 +76,7 @@ const Menu = () => {
           </h3>
         </div>
         <div className="flex flex-col">
-          <Producto
-            nombre="Hamburguesa"
-            estrellas="3"
-            consumidores="1"
-            precio="1200"
-            imagen={`/img/demo-hamburguesa.png`}
-            setProductos={setProductos}
-          />
-          <Producto
-            nombre="Pizza"
-            estrellas="4"
-            consumidores="3"
-            precio="1200"
-            imagen={`/img/demo-pizza.png`}
-            setProductos={setProductos}
-          />
-          <Producto
-            nombre="Lomito"
-            estrellas="5"
-            consumidores="2"
-            precio="1700"
-            imagen={`/img/demo-lomito.png`}
-            setProductos={setProductos}
-          />
+            {productos}
         </div>
       </div>
       <FooterResumen
