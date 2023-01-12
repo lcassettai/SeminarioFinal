@@ -3,11 +3,13 @@ import NavMenu from "../../layout/NavMenu";
 import Producto from "../../components/menu/Producto";
 import FiltroCategoriasMenu from "../../components/menu/FiltroCategoriasMenu";
 import FooterResumen from "../../components/menu/FooterResumen";
+import ModalDetalle from "../../components/menu/ModalDetalle";
 import { useState } from "react";
 
 const Menu = () => {
   const { codigoMesa } = useParams();
-  const [cantidadPedido, cargarProductos] = useState([]);
+  const [estadoModalDetalle,setEstadoModalDetalle] = useState(false);
+  const [pedido, cargarProductos] = useState([]);
 
   return (
     <>
@@ -57,18 +59,33 @@ const Menu = () => {
         </div>
       </div>
       <FooterResumen
+        setEstadoModalDetalle={setEstadoModalDetalle}
         cantidad={
-          cantidadPedido.length === 0
+          pedido.length === 0
             ? 0
-            : cantidadPedido.reduce(
+            : pedido.reduce(
                 (acumulador, actual) => acumulador + actual.cantidad,
                 0
               )
         }
         total={
-          cantidadPedido.length === 0
+          pedido.length === 0
             ? 0
-            : cantidadPedido.reduce(
+            : pedido.reduce(
+                (acumulador, actual) =>
+                  acumulador + actual.cantidad * actual.precio,
+                0
+              )
+        }
+      />
+      <ModalDetalle 
+        estado={estadoModalDetalle}
+        cambiarEstado={setEstadoModalDetalle}
+        pedido={pedido}
+        total={
+          pedido.length === 0
+            ? 0
+            : pedido.reduce(
                 (acumulador, actual) =>
                   acumulador + actual.cantidad * actual.precio,
                 0

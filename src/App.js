@@ -8,7 +8,8 @@ import Restaurante from './views/restaurantes/Restaurante'
 import Menu from './views/restaurantes/Menu'
 import {Route,Routes} from 'react-router-dom';
 import EscanearQR from './views/escanearQR/EscanearQR';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -26,6 +27,18 @@ function App() {
             <Route path="/restaurantes/:idRestaurante/:codigoMesa" element={<Menu/>}/>
             <Route path="*" element={<h1>404 Not found</h1>}/>
           </Routes>
+          <ToastContainer
+            position="top-center"
+            autoClose={800}
+            hideProgressBar
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable={false}
+            pauseOnHover={false}
+            theme="colored"
+           />
         </div>
     </div>
   );

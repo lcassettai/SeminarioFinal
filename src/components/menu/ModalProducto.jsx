@@ -3,6 +3,8 @@ import Estrellas from "../../components/Estrellas";
 import Consumidores from "../Consumidores";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ModalProducto = ({
   precio,
@@ -27,6 +29,17 @@ const ModalProducto = ({
     }
   };
 
+  const notificar = () => toast.success('Se añadio un nuevo producto a tu pedido!', {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "colored",
+    });;
+
   const agregarAlPedido = () => {
     //Habria que cambiar el nombre del producto por un id
     agregarProducto((prevState) => {
@@ -40,6 +53,7 @@ const ModalProducto = ({
             ...prevState,
             {
               id: nombre,
+              nombre: nombre,
               cantidad: cantidad,
               precio: precio
             },
@@ -47,6 +61,7 @@ const ModalProducto = ({
     });
     setCantidad(0);
     setEstadoModal(false);
+    notificar();
   };
 
   return (
