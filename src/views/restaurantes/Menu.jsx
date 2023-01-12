@@ -9,7 +9,7 @@ import { useState } from "react";
 const Menu = () => {
   const { codigoMesa } = useParams();
   const [estadoModalDetalle,setEstadoModalDetalle] = useState(false);
-  const [pedido, cargarProductos] = useState([]);
+  const [pedido, setProductos] = useState([]);
 
   return (
     <>
@@ -38,7 +38,7 @@ const Menu = () => {
             consumidores="1"
             precio="1200"
             imagen={`/img/demo-hamburguesa.png`}
-            cargarProducto={cargarProductos}
+            setProductos={setProductos}
           />
           <Producto
             nombre="Pizza"
@@ -46,7 +46,7 @@ const Menu = () => {
             consumidores="3"
             precio="1200"
             imagen={`/img/demo-pizza.png`}
-            cargarProducto={cargarProductos}
+            setProductos={setProductos}
           />
           <Producto
             nombre="Lomito"
@@ -54,7 +54,7 @@ const Menu = () => {
             consumidores="2"
             precio="1700"
             imagen={`/img/demo-lomito.png`}
-            cargarProducto={cargarProductos}
+            setProductos={setProductos}
           />
         </div>
       </div>
@@ -81,6 +81,7 @@ const Menu = () => {
       <ModalDetalle 
         estado={estadoModalDetalle}
         cambiarEstado={setEstadoModalDetalle}
+        setProductos={setProductos}
         pedido={pedido}
         total={
           pedido.length === 0

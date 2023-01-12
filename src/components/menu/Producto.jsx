@@ -40,7 +40,7 @@ const Producto = (props) => {
         imagen={props.imagen}
         estrellas={props.estrellas}
         precio={props.precio}
-        agregarProducto={props.cargarProducto}
+        setProductos={props.setProductos}
         setEstadoModal={setEstadoModal}
       />
     </>

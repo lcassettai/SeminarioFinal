@@ -1,11 +1,31 @@
 import styled from "styled-components";
 import { IoClose } from "react-icons/io5";
+import { toast } from 'react-toastify';
 
-const ModalDetalle = (props) => {
+const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
   let items = "";
 
-  if (props.pedido.length > 0) {
-    items = props.pedido.map((p) => {
+  const notificar = () => toast.error(`Se quito el producto de tu pedido!`, {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "colored",
+    });;
+
+
+  const quitarProducto = (id) => {
+      setProductos((prevState) => {
+        return [...prevState.filter((producto) => producto.id !== id)];  
+      });
+      notificar();
+  };
+
+  if (pedido.length > 0) {
+    items = pedido.map((p) => {
       return (
         <div className="flex border shadow rounded-sm justify-between p-2  mt-4 " key={p.id}>
           <div className="flex flex-col">
@@ -14,8 +34,10 @@ const ModalDetalle = (props) => {
               ${p.precio} x {p.cantidad}
             </span>
           </div>
-          <div className="text-2xl text-red-800">
-            <IoClose />
+          <div className="text-3xl text-red-800 ">
+            <button className="align-middle	" onClick={() => quitarProducto(p.id)}>
+                <IoClose />
+            </button>
           </div>
         </div>
       );
@@ -32,12 +54,12 @@ const ModalDetalle = (props) => {
 
   return (
     <>
-      {props.estado && (
+      {estado && (
         <div className="w-full h-full fixed top-0 left-0 bg-black/50 flex items-end justify-center z-50">
           <div className="w-full  h-full bg-white relative ">
             <BotonCerrar
               className="text-5xl"
-              onClick={() => props.cambiarEstado(false)}
+              onClick={() => cambiarEstado(false)}
             >
               <IoClose />
             </BotonCerrar>
@@ -49,7 +71,7 @@ const ModalDetalle = (props) => {
               <div className="mb-4  ">
                 {items}
               </div>
-              <span className="text-teal-800 font-bold text-2xl pt-4">Total ${props.total}</span>
+              <span className="text-teal-800 font-bold text-2xl pt-4">Total ${total}</span>
             </div>
             <div className="bg-teal-800 w-full py-4 text-white fixed bottom-0">
               <div className="text-center text-xl font-bold">

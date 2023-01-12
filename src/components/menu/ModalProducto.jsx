@@ -14,7 +14,7 @@ const ModalProducto = ({
   consumidores,
   estado,
   cambiarEstado,
-  agregarProducto,
+  setProductos,
   setEstadoModal,
 }) => {
   const [cantidad, setCantidad] = useState(0);
@@ -42,7 +42,7 @@ const ModalProducto = ({
 
   const agregarAlPedido = () => {
     //Habria que cambiar el nombre del producto por un id
-    agregarProducto((prevState) => {
+    setProductos((prevState) => {
       let productoEnCarrito = prevState.find((prod) => prod.id === nombre);
 
       return productoEnCarrito
