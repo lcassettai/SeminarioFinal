@@ -11,7 +11,7 @@ const Menu = () => {
   const [estadoModalDetalle,setEstadoModalDetalle] = useState(false);
   const [pedido, setProductos] = useState([]);
 
-  const productosEjemplo = [
+  const listadoProductos = [
     {
       id:1,
       nombre:"Hamburguesa",
@@ -41,6 +41,8 @@ const Menu = () => {
     },
   ];
 
+  const [productosEjemplo,setProductoEjemplo] = useState(listadoProductos);
+
   let productos = productosEjemplo.map((producto) => {
     //TODO la key debe ser el id del producto
     return (<Producto
@@ -55,6 +57,15 @@ const Menu = () => {
     />);
   });
 
+  const productosFilter = (event) => {
+    let productosFiltrados = listadoProductos.filter(({nombre}) => {
+        return nombre.toLowerCase().includes(event.target.value.toLowerCase())
+    })
+
+    setProductoEjemplo(productosFiltrados);
+}
+
+
   return (
     <>
       <NavMenu text="Menu" />
@@ -67,6 +78,7 @@ const Menu = () => {
             type="text"
             className="input-text-md"
             placeholder="Producto"
+            onChange={productosFilter}
           ></input>
         </div>
         <FiltroCategoriasMenu />
