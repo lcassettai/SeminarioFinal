@@ -3,7 +3,10 @@
     "version": "1.0.0",
     "private": true,
     "workspaces": [
-      "client",
-      "server"
-    ]
-  }
+        "client",
+        "server"
+    ],
+    "dependencies": {
+        "dotenv": "^16.3.0"
+    }
+}
