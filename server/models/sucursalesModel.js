@@ -9,7 +9,8 @@ const getAll = async () => {
             lo.nombre AS nombre_localidad,
             es.nombre AS nombre_establecimiento,
             imagen,
-            valoracion
+            valoracion,
+            descripcion
     FROM sucursales su
     INNER JOIN provincias pro ON su.id_provincia = pro.id
     INNER JOIN localidades lo ON lo.id = su.id_localidad
@@ -27,7 +28,8 @@ const get = async (id) => {
             lo.nombre AS nombre_localidad,
             es.nombre AS nombre_establecimiento,
             imagen,
-            valoracion
+            valoracion,
+            descripcion
     FROM sucursales su
     INNER JOIN provincias pro ON su.id_provincia = pro.id
     INNER JOIN localidades lo ON lo.id = su.id_localidad
