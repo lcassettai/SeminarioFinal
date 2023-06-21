@@ -25,7 +25,7 @@ const getSucursal = async (req, res) => {
       return;
     }
 
-    res.json(sucursal);
+    res.json(sucursal[0]);
   } catch (error) {
     console.error(error);
     res

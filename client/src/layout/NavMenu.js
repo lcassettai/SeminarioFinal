@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import Logo from '../assets/img/logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function NavMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
     const texto = props.text !== undefined ? props.text : 'Restaurante';
-    
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        localStorage.setItem("token",null);
+        navigate("/");
+    }
+
     return (
         <div>
             <nav className="shadow-lg fixed w-full bg-white">
@@ -40,7 +46,7 @@ function NavMenu(props) {
                                         to="/restaurantes"
                                         className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
-                                        Llamar al mozo
+                                        Restaurantes
                                     </Link>
                                     <Link
                                         to="/restaurantes"
@@ -48,12 +54,12 @@ function NavMenu(props) {
                                     >
                                         Solicitar la cuenta
                                     </Link>
-                                    <Link
-                                        to="/"
+                                    <button
+                                        onClick={handleLogOut}
                                         className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
                                         Cerrar Sesion
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                         </div>
