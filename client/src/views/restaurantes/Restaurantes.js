@@ -9,7 +9,12 @@ const Restaurantes = () => {
     useEffect(() => {
         const fetchSucursales = async () => {
           try {
-            const response = await fetch('http://localhost:4000/api/sucursales');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sucursales`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token')
+                  },
+            });
             const data = await response.json();
             setListado(data);
           } catch (error) {
@@ -36,7 +41,7 @@ const Restaurantes = () => {
 
         return listadoRestaurantes.map((restaurante) => {
             return <Link to={`/restaurantes/${restaurante.id_sucursal}`}  key={restaurante.id_sucursal} >
-                <ItemRestaurante imagenPortada={`http://localhost:4000/images/${restaurante.imagen}`} estrellas={restaurante.valoracion} nombre={restaurante.nombre_establecimiento} />
+                <ItemRestaurante imagenPortada={`${process.env.REACT_APP_API_URL}/images/${restaurante.imagen}`} estrellas={restaurante.valoracion} nombre={restaurante.nombre_establecimiento} />
             </Link>
         })
     }
