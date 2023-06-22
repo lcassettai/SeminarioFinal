@@ -145,12 +145,12 @@ function NavMenu(props) {
                                     >
                                         Solicitar la cuenta
                                     </Link>
-                                    <Link
-                                        to="/"
-                                        className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                                    <button
+                                        onClick={handleLogOut}
+                                        className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
                                         Cerrar Sesion
-                                    </Link>
+                                    </button>
                             </div>
                         </div>
                 </Transition>
