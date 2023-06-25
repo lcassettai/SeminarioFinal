@@ -17,33 +17,35 @@ const Codigo = () => {
 
   const handleCodigo = async () => {
     if (
-      primerElemento.current.value &&
-      segundoElemento.current.value &&
-      tercerElemento.current.value &&
-      cuartoElemento.current.value
+      !primerElemento.current.value ||
+      !segundoElemento.current.value ||
+      !tercerElemento.current.value ||
+      !cuartoElemento.current.value
     ) {
-      let codigoMesa =
-        primerElemento.current.value +
-        segundoElemento.current.value +
-        tercerElemento.current.value +
-        cuartoElemento.current.value;
-      const mesa = await buscarMesaSucursal(codigoMesa);
-
-      if (mesa) {
-        navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
-      } else {
-        MySwal.fire({
-          title: <strong>Codigo incorrecto!</strong>,
-          html: <i>No se encontro el codigo</i>,
-          confirmButtonColor: "#009688",
-          confirmButtonText: "Aceptar",
-          icon: "warning",
-        });
-      }
-    } else {
       MySwal.fire({
         title: <strong>Oops!</strong>,
         html: <i>Debes llenar todos los campos</i>,
+        confirmButtonColor: "#009688",
+        confirmButtonText: "Aceptar",
+        icon: "warning",
+      });
+      return;
+    }
+
+    let codigoMesa =
+      primerElemento.current.value +
+      segundoElemento.current.value +
+      tercerElemento.current.value +
+      cuartoElemento.current.value;
+
+    const mesa = await buscarMesaSucursal(codigoMesa);
+
+    if (mesa) {
+      navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
+    } else {
+      MySwal.fire({
+        title: <strong>Codigo incorrecto!</strong>,
+        html: <i>No se encontro el codigo</i>,
         confirmButtonColor: "#009688",
         confirmButtonText: "Aceptar",
         icon: "warning",
