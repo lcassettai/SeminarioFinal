@@ -6,6 +6,7 @@ import ModalProducto from "./ModalProducto";
 
 const Producto = (props) => {
   const [estadoModal, setEstadoModal] = useState(false);
+  const baseUrlImagen =  `${process.env.REACT_APP_API_URL}/images`
 
   return (
     <>
@@ -13,7 +14,7 @@ const Producto = (props) => {
         <div className="shadow-md border border-gray-100 w-full mt-4 flex flex-row rounded-xl p-2">
           <div>
             <img
-              src={props.imagen}
+              src={`${baseUrlImagen}/${props.imagen}`}
               className="imagen-menu"
               alt=""
             />
@@ -42,6 +43,7 @@ const Producto = (props) => {
         precio={props.precio}
         setProductos={props.setProductos}
         idProducto={props.idProducto}
+        detalle={props.detalle}
         setEstadoModal={setEstadoModal}
       />
     </>

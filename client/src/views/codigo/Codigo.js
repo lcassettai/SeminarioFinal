@@ -1,11 +1,10 @@
 import Logo from '../../assets/img/logo.svg';
 import {Link} from 'react-router-dom';
 import {useRef} from 'react';
-import {listadoInicialRestaurantes} from "../../assets/datosPruebas"
-import {filtrarRestaurantesPorCodigo} from '../../util';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {getMesaByCodigo} from '../../api/mesas' 
 
 const Codigo = () => {
     const MySwal = withReactContent(Swal);
@@ -14,29 +13,27 @@ const Codigo = () => {
     const primerElemento = useRef(null);
     const segundoElemento = useRef(null);
     const tercerElemento = useRef(null);
-    const cuartoElemento = useRef(null);
+    const cuartoElemento = useRef(null);    
 
-
-    const handleCodigo = () => {
-
+    const handleCodigo = async () => {
         if( primerElemento.current.value &&
             segundoElemento.current.value &&
             tercerElemento.current.value &&
             cuartoElemento.current.value){
-                let codigoMesa = primerElemento.current.value+segundoElemento.current.value+tercerElemento.current.value+cuartoElemento.current.value ;
-                let restaurante = filtrarRestaurantesPorCodigo(listadoInicialRestaurantes,codigoMesa);
-
-                if(!restaurante.length){
-                    MySwal.fire({
-                        title: <strong>Algo salio mal!</strong>,
-                        html: <i>No se encuntra el codigo</i>,
-                        confirmButtonColor: '#009688',
-                        confirmButtonText: 'Aceptar',
-                        icon: 'error'
-                      })
-                }else{
-                    navigate("/restaurantes/" + restaurante[0].id + '/' +codigoMesa);
-                }
+            let codigoMesa = primerElemento.current.value+segundoElemento.current.value+tercerElemento.current.value+cuartoElemento.current.value ;
+            const mesa = await buscarMesaSucursal(codigoMesa);          
+            
+            if(mesa){
+                navigate(`/restaurantes/${mesa.id_sucursal}/menu`)
+            }else{
+                MySwal.fire({
+                    title: <strong>Codigo incorrecto!</strong>,
+                    html: <i>No se encontro el codigo</i>,
+                    confirmButtonColor: '#009688',
+                    confirmButtonText: 'Aceptar',
+                    icon: 'warning'
+                  })
+            }
 
         }else{
             MySwal.fire({
@@ -47,6 +44,17 @@ const Codigo = () => {
                 icon: 'warning'
               })
         }
+    }
+    
+    const buscarMesaSucursal = async (codigoMesa) => {
+        try {
+            const result = await getMesaByCodigo(codigoMesa);   
+            const data = await result.json();
+        
+            return data;           
+        } catch (error) {
+            console.error();
+        }      
     }
 
     

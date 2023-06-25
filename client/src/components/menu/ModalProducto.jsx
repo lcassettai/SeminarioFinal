@@ -16,9 +16,11 @@ const ModalProducto = ({
   cambiarEstado,
   setProductos,
   setEstadoModal,
-  idProducto
+  idProducto,
+  detalle
 }) => {
   const [cantidad, setCantidad] = useState(0);
+  const baseUrlImagen =  `${process.env.REACT_APP_API_URL}/images`
 
   const sumar = () => {
     setCantidad(cantidad + 1);
@@ -78,7 +80,7 @@ const ModalProducto = ({
             </BotonCerrar>
             <div className="pt-8 px-6  w-full">
               <div className="flex justify-center">
-                <img src={imagen} className="imagen-menu" alt="" />
+                <img src={`${baseUrlImagen}/${imagen}`} className="imagen-menu" alt="" />
               </div>
               <div className="font-bold text-center text-teal-700 text-2xl mt-4 uppercase">
                 {nombre}
@@ -93,17 +95,7 @@ const ModalProducto = ({
                 <div className="mt-4">
                   <span className="font-bold text-xl">Descripción</span>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pellentesque condimentum egestas lacus. Nam sed tortor ac
-                    nulla sodales dapibus. Cras vulputate sapien in nisl
-                    feugiat, a placerat lacus consectetur. Duis massa libero,
-                    consectetur at elementum aliquam, sodales sit amet turpis.
-                    Suspendisse ac risus sagittis, laoreet erat ultrices,
-                    sodales tellus. Sed malesuada volutpat erat, eget fringilla
-                    enim viverra vitae. Donec nec dolor quis ligula blandit
-                    pretium nec eget lectus. Nam arcu sem, auctor accumsan
-                    sollicitudin in, consequat vitae nulla. Nulla pharetra arcu
-                    tellus, id ornare libero accumsan sed.
+                    {detalle}
                   </p>
                 </div>
               </div>

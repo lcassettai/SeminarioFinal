@@ -23,3 +23,13 @@ export const getRestaurante = async (id) => {
     return response;
 }
 
+export const getMenu = async (idSucursal) =>{
+    const response = await fetch(`${baseUrl}/${idSucursal}/menu`, {
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+    });
+
+    return response;
+}

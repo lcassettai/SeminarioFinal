@@ -22,7 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route
-            path="/restaurantes/:idRestaurante/:codigoMesa"
+            path="/restaurantes/:idRestaurante/menu"
             element={
               <Protected>
                 <Menu />

@@ -4,67 +4,39 @@ import Producto from "../../components/menu/Producto";
 import FiltroCategoriasMenu from "../../components/menu/FiltroCategoriasMenu";
 import FooterResumen from "../../components/menu/FooterResumen";
 import ModalDetalle from "../../components/menu/ModalDetalle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getMenu } from "../../api/restaurantes";
 
 const Menu = () => {
-  const { codigoMesa } = useParams();
-  const [estadoModalDetalle,setEstadoModalDetalle] = useState(false);
+  const { idRestaurante } = useParams();
+  const [estadoModalDetalle, setEstadoModalDetalle] = useState(false);
   const [pedido, setProductos] = useState([]);
+  const [listadoProductos, setListadoProductos] = useState([]);
+  const [listadoProductosInicial, setListadoProductosInicial] = useState([]);
 
-  const listadoProductos = [
-    {
-      id:1,
-      nombre:"Hamburguesa",
-      estrellas:3,
-      consumidores:1,
-      precio:1200,
-      imagen:'/img/demo-hamburguesa.png',
-      setProductos:{setProductos}
-    },
-    {
-      id:2,
-      nombre:"Pizza",
-      estrellas:4,
-      consumidores:2,
-      precio:1000,
-      imagen:'/img/demo-pizza.png',
-      setProductos:{setProductos}
-    },
-    {
-      id:3,
-      nombre:"Lomito",
-      estrellas:5,
-      consumidores:1,
-      precio:1900,
-      imagen:'/img/demo-lomito.png',
-      setProductos:{setProductos}
-    },
-  ];
+  useEffect(() => {
+    const getMenuSucursal = async () => {
+      try {
+        const response = await getMenu(idRestaurante);
+        const data = await response.json();
 
-  const [productosEjemplo,setProductoEjemplo] = useState(listadoProductos);
+        setListadoProductos(data);
+        setListadoProductosInicial(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  let productos = productosEjemplo.map((producto) => {
-    //TODO la key debe ser el id del producto
-    return (<Producto
-      key={producto.id}
-      idProducto={producto.id}
-      nombre={producto.nombre}
-      estrellas={producto.estrellas}
-      consumidores={producto.consumidores}
-      precio={producto.precio}
-      imagen={producto.imagen}
-      setProductos={setProductos}
-    />);
-  });
+    getMenuSucursal();
+  }, []);
 
   const productosFilter = (event) => {
-    let productosFiltrados = listadoProductos.filter(({nombre}) => {
-        return nombre.toLowerCase().includes(event.target.value.toLowerCase())
+    let productosFiltrados = listadoProductosInicial.filter(({descripcion}) => {
+        return descripcion.toLowerCase().includes(event.target.value.toLowerCase())
     })
 
-    setProductoEjemplo(productosFiltrados);
-}
-
+    setListadoProductos(productosFiltrados);
+  };
 
   return (
     <>
@@ -88,7 +60,23 @@ const Menu = () => {
           </h3>
         </div>
         <div className="flex flex-col">
-            {productos}
+          {listadoProductos
+            ? listadoProductos.map((producto) => {
+                return (
+                  <Producto
+                    key={producto.id_producto}
+                    idProducto={producto.id_producto}
+                    nombre={producto.descripcion}
+                    estrellas={producto.valoracion}
+                    consumidores={producto.cantidad_comen}
+                    precio={producto.precio}
+                    imagen={producto.imagen}
+                    detalle={producto.detalle}
+                    setProductos={setProductos}
+                  />
+                );
+              })
+            : "Cargando..."}
         </div>
       </div>
       <FooterResumen
@@ -111,7 +99,7 @@ const Menu = () => {
               )
         }
       />
-      <ModalDetalle 
+      <ModalDetalle
         estado={estadoModalDetalle}
         cambiarEstado={setEstadoModalDetalle}
         setProductos={setProductos}
