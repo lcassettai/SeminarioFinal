@@ -1,6 +1,5 @@
 import { useParams, Link } from "react-router-dom";
 import NavMenu from "../../layout/NavMenu";
-import { listadoInicialRestaurantes } from "../../assets/datosPruebas";
 import Titulo from "../../components/Titulo";
 import Estrellas from "../../components/Estrellas";
 import { getRestaurante } from "../../api/restaurantes";
