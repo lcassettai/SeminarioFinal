@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {getCategoriasSucursal} from '../../api/categorias';
 
-const FiltroCategoriasMenu = () => {
+const FiltroCategoriasMenu = ({setOnCategoriaSeleccionada}) => {
   const [categorias,setCategorias] = useState();
   const { idRestaurante } = useParams();
 
@@ -30,13 +30,13 @@ const FiltroCategoriasMenu = () => {
     getCategorias();
   },[]);
 
-    const handleSelected = (elemento) => {
-        console.log(elemento);
-    }
+  const handleSelected = (elemento) => {
+    setOnCategoriaSeleccionada(elemento);
+  }
 
   return (
     <>
-      <div>
+      <div>        
         <div className="w-full grid grid-flow-col auto-cols-max overflow-x-auto container-snap 	">
           {
             categorias ? categorias.map( (c) => {
