@@ -13,6 +13,7 @@ const Menu = () => {
   const [pedido, setProductos] = useState([]);
   const [listadoProductos, setListadoProductos] = useState([]);
   const [listadoProductosInicial, setListadoProductosInicial] = useState([]);
+  const [categoriasSeleccionadas,setCategoriasSeleccionadas] = useState([]);
 
   useEffect(() => {
     const getMenuSucursal = async () => {
@@ -35,8 +36,40 @@ const Menu = () => {
         return descripcion.toLowerCase().includes(event.target.value.toLowerCase())
     })
 
+    setListadoProductos(productosFiltrados);   
+  };
+
+  const productosFilterCategorias = (categorias) => {
+    if(categorias.length === 0){
+      setListadoProductos(listadoProductosInicial);
+      return;
+    }
+
+    let productosFiltrados = listadoProductosInicial.filter(({id_categoria}) => {
+        return categorias.includes(id_categoria.toString())
+    })
+
     setListadoProductos(productosFiltrados);
   };
+
+  const categoriaSeleccionada = (elemento) => {
+    if(categoriasSeleccionadas.includes(elemento)){
+      let cat = categoriasSeleccionadas.filter( (categoria) => {
+        return categoria != elemento;
+      })
+      setCategoriasSeleccionadas(cat);
+    }else{
+      setCategoriasSeleccionadas((ele) => {
+        return [...ele,elemento]
+      });    
+    } 
+  }
+
+  useEffect( () => {
+    productosFilterCategorias(categoriasSeleccionadas);   
+  },[categoriasSeleccionadas]);
+
+  
 
   return (
     <>
@@ -53,7 +86,7 @@ const Menu = () => {
             onChange={productosFilter}
           ></input>
         </div>
-        <FiltroCategoriasMenu />
+        <FiltroCategoriasMenu setOnCategoriaSeleccionada={categoriaSeleccionada}/>
         <div className="mt-4">
           <h3 className="form-label inline-block mb-2 text-lg text-gray-700 font-bold">
             Productos

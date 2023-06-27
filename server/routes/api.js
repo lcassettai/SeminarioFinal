@@ -5,6 +5,7 @@ const provinciasController = require("../controllers/provinciasController");
 const sucursalesController = require("../controllers/sucursalesController");
 const productosController = require("../controllers/productosController");
 const mesasController = require("../controllers/mesasController");
+const categoriasController = require("../controllers/categoriasController");
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.get("/sucursales/:id_sucursal/menu",middleware.verifyToken,productosContr
 
 router.get("/mesas",middleware.verifyToken,mesasController.getMesas);
 
+router.get("/categorias",middleware.verifyToken,categoriasController.getAllCategorias);
 
 
 module.exports = router;
