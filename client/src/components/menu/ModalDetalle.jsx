@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import { IoClose } from "react-icons/io5";
 import { toast } from 'react-toastify';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
   let items = "";
+  const MySwal = withReactContent(Swal);
 
   const notificar = () => toast.error(`Se quito el producto de tu pedido!`, {
     position: "top-center",
@@ -23,6 +26,28 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
       });
       notificar();
   };
+
+  const handleCodigoVerificacion = async () =>{
+    const { value: password } = await Swal.fire({
+      titleText: 'Ingrese el codigo de 6 digitos provisto por el mozo',
+      input: 'text',
+      inputPlaceholder:'Codigo de verificacion',
+      confirmButtonColor: "#009688",
+      confirmButtonText: "Aceptar",
+      denyButtonText: "Cancelar",
+      showDenyButton:true,
+      inputAttributes: {
+        maxlength: 6,
+        autocapitalize: 'on',
+        required: 'on',
+        autocorrect: 'off'
+      }
+    })
+    
+    if (password) {
+      Swal.fire(`Ingreso el codigo: ${password}`)
+    }
+  }
 
   if (pedido.length > 0) {
     items = pedido.map((p) => {
@@ -75,7 +100,9 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
             </div>
             <div className="bg-teal-800 w-full py-4 text-white fixed bottom-0">
               <div className="text-center text-xl font-bold">
-                Finalizar pedido
+                <button onClick={handleCodigoVerificacion}>
+                    Finalizar Pedido
+                </button>
               </div>
             </div>
           </div>

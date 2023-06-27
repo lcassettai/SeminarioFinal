@@ -1,6 +1,6 @@
 const db = require("../services/db");
 
-const getMesas = async (codigo) => {
+const getMesas = async (codigo_ingreso) => {
   const resultado = await db.query(
             `SELECT ID_MESA,
                 DESCRIPCION,
@@ -13,10 +13,11 @@ const getMesas = async (codigo) => {
             FROM MESAS
             WHERE CODIGO_IDENTIFICACION = $1
         AND ACTIVA = TRUE
-        `, [codigo]
+        `, [codigo_ingreso]
   );
   return resultado.rows;
 };
+
 
 module.exports = {
     getMesas,
