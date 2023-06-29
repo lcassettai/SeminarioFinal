@@ -3,10 +3,11 @@ import ItemRestaurante from "../../components/restaurante/ItemRestaurante";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getAllRestaurantes } from "../../api/restaurantes";
+import { ColorRing } from  'react-loader-spinner'
 
 const Restaurantes = () => {
-  const [listadoRestaurantesInicial, setListadoIncial] = useState();
-  const [listadoRestaurantes, setListado] = useState();
+  const [listadoRestaurantesInicial, setListadoIncial] = useState(null);
+  const [listadoRestaurantes, setListado] = useState(null);
   const navigate = useNavigate();
  
 
@@ -15,7 +16,7 @@ const Restaurantes = () => {
       try {
         const response = await getAllRestaurantes();
         const data = await response.json();
-
+        
         setListado(data);
         setListadoIncial(data);
       } catch (error) {
@@ -39,8 +40,17 @@ const Restaurantes = () => {
   };
 
   const mostrarRestaurantes = () => {
-    if (listadoRestaurantes == null) {
-      return "";
+    console.log("entre al listado");
+    if (!listadoRestaurantes || listadoRestaurantes == null) {
+      return <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={['#0f766e', '#0f766e', '#0f766e', '#0f766e', '#0f766e']}
+        />
     }
 
     return listadoRestaurantes.map((restaurante) => {

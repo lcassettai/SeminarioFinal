@@ -7,8 +7,9 @@ import withReactContent from "sweetalert2-react-content";
 const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
   let items = "";
   const MySwal = withReactContent(Swal);
+  const pedidoNuevo = JSON.parse(localStorage.getItem("pedido"));
 
-  const notificar = () => toast.error(`Se quito el producto de tu pedido!`, {
+  const notificar = (texto) => toast.error(`${texto}`, {
     position: "top-center",
     autoClose: 1000,
     hideProgressBar: true,
@@ -24,29 +25,16 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
       setProductos((prevState) => {
         return [...prevState.filter((producto) => producto.id !== id)];  
       });
-      notificar();
+      notificar('Se quito el producto de tu pedido!');
   };
 
   const handleCodigoVerificacion = async () =>{
-    const { value: password } = await Swal.fire({
-      titleText: 'Ingrese el codigo de 6 digitos provisto por el mozo',
-      input: 'text',
-      inputPlaceholder:'Codigo de verificacion',
-      confirmButtonColor: "#009688",
-      confirmButtonText: "Aceptar",
-      denyButtonText: "Cancelar",
-      showDenyButton:true,
-      inputAttributes: {
-        maxlength: 6,
-        autocapitalize: 'on',
-        required: 'on',
-        autocorrect: 'off'
-      }
-    })
-    
-    if (password) {
-      Swal.fire(`Ingreso el codigo: ${password}`)
+    if(total === 0 ){
+      notificar('No existen productos en su pedido');
+      return;
     }
+    
+   //logica para cargar el pedido
   }
 
   if (pedido.length > 0) {
@@ -92,7 +80,9 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
               <h1 className="text-teal-800 font-bold text-2xl mb-4">
                 DETALLE DEL PEDIDO
               </h1>
-              <span className="font-bold pt-4 ">Pedido Nro : 15645</span>
+              <span className="font-bold pt-4 ">Pedido Nro : #{pedidoNuevo.nro_pedido  }</span>
+              <br></br>
+              <span className="font-bold pt-4 ">Codigo : {pedidoNuevo.codigo_adecion}</span>
               <div className="mb-4  ">
                 {items}
               </div>

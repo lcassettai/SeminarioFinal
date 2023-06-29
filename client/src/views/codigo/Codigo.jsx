@@ -41,6 +41,7 @@ const Codigo = () => {
     const mesa = await buscarMesaSucursal(codigoMesa);
 
     if (mesa) {
+      localStorage.setItem("mesa",codigoMesa);  
       navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
     } else {
       MySwal.fire({
