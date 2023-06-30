@@ -43,6 +43,7 @@ const Codigo = () => {
     if (mesa) {
       localStorage.setItem("mesa",codigoMesa);  
       navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
+      navigate(0);
     } else {
       MySwal.fire({
         title: <strong>Codigo incorrecto!</strong>,
@@ -69,16 +70,36 @@ const Codigo = () => {
     const numOfFields = 4;
     const { maxLength, value, name } = e.target;
     const [fieldName, fieldIndex] = name.split("-");
+    const posicion = parseInt(fieldIndex, 10);
+    let next = null;    
+    const key = e.key; // const {key} = event; ES6+
 
-    if (parseInt(fieldIndex, 10) < numOfFields) {
+    if (key === "Backspace" || key === "Delete") {
+      if (posicion > 0) {
+        // Get the next input field
+        const next = document.querySelector(
+          `input[name=codigo-${posicion - 1}]`
+        );
+  
+        // If found, focus the next field
+        if (next !== null) {
+          next.value = '';
+          next.focus();
+        }
+      }
+      return;
+    }
+
+    if (posicion < numOfFields) {
       // Get the next input field
-      const nextSibling = document.querySelector(
-        `input[name=codigo-${parseInt(fieldIndex, 10) + 1}]`
+      next = document.querySelector(
+        `input[name=codigo-${posicion + 1}]`
       );
 
       // If found, focus the next field
-      if (nextSibling !== null) {
-        nextSibling.focus();
+      if (next !== null) {
+        next.value = '';
+        next.focus();
       }
     }
   };
@@ -103,6 +124,7 @@ const Codigo = () => {
               className="display-block input-text-lg text-center uppercase"
               ref={primerElemento}
               onKeyUp={handleFocus}
+              onClick={ (e) => {e.target.value = ''} }
             ></input>
           </div>
           <div className="mx-2 w-12">
@@ -114,6 +136,7 @@ const Codigo = () => {
               className="display-block input-text-lg text-center uppercase"
               ref={segundoElemento}
               onKeyUp={handleFocus}
+              onClick={ (e) => {e.target.value = ''} }
             ></input>
           </div>
           <div className="mx-2 w-12">
@@ -125,6 +148,7 @@ const Codigo = () => {
               className="display-block input-text-lg text-center uppercase"
               ref={tercerElemento}
               onKeyUp={handleFocus}
+              onClick={ (e) => {e.target.value = ''} }
             ></input>
           </div>
           <div className="mx-2 w-12">
@@ -136,6 +160,7 @@ const Codigo = () => {
               className="display-block input-text-lg text-center uppercase"
               ref={cuartoElemento}
               onKeyUp={handleFocus}
+              onClick={ (e) => {e.target.value = ''} }
             ></input>
           </div>
         </div>
