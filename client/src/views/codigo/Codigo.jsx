@@ -1,6 +1,6 @@
 import Logo from "../../assets/img/logo.svg";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -14,6 +14,10 @@ const Codigo = () => {
   const segundoElemento = useRef(null);
   const tercerElemento = useRef(null);
   const cuartoElemento = useRef(null);
+  
+  useEffect(() => {
+    document.querySelector(`input[name=codigo-1]`).focus();
+  });
 
   const handleCodigo = async () => {
     if (
@@ -43,7 +47,6 @@ const Codigo = () => {
     if (mesa) {
       localStorage.setItem("mesa",codigoMesa);  
       navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
-      navigate(0);
     } else {
       MySwal.fire({
         title: <strong>Codigo incorrecto!</strong>,

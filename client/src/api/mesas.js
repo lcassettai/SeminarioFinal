@@ -1,8 +1,8 @@
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/mesas`;
-const token = localStorage.getItem('token');
 
 export const getMesaByCodigo = async (codigo) => {    
-
+    const token = localStorage.getItem('token');
+    
     const response = await fetch(`${baseUrl}?codigo=${codigo}`, {
         method: "GET", 
         headers:{

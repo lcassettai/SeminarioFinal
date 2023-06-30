@@ -50,13 +50,12 @@ export default function Login() {
             //Esto se puede mejorar ya que no es tan seguro 
             if(response.status === 401 || response.status === 400){
                 notificar(result.error);
-                localStorage.setItem('token',null);
+                localStorage.removeItem('token');
             }else{
                 localStorage.setItem('token',result.token);
-                localStorage.setItem('mesa',null);
-                localStorage.setItem('pedido',null  );
+                localStorage.removeItem('mesa');
+                localStorage.removeItem('pedido');
                 navigate("/menuHome");
-                navigate(0);
             }         
             
           } catch (error) {

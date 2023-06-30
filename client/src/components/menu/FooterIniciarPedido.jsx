@@ -55,7 +55,7 @@ const FooterIniciarPedido = (props) => {
                 props.setNuevoPedido(true);
                 notificar('Se inicio un nuevo pedido con exito!');
             }else{
-                localStorage.setItem("pedido",null);
+                localStorage.removeItem("pedido");
                 props.setNuevoPedido(false);
                 notificarError('El codigo ingresado es incorrecto!');
             }                   
