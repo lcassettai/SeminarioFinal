@@ -21,6 +21,7 @@ const nuevoPedido = async (req, res) => {
     const usuario = req.usuario.id_usuario;
     
     const pedidoInsertado = await pedidosModel.nuevoPedido(codigoIngreso,usuario,mesa[0].id_mesa);
+    await pedidosModel.nuevoPedidoIndividual(pedidoInsertado[0].id_pedido,usuario);
 
     const pedido = await pedidosModel.getPedido(pedidoInsertado[0].id_pedido);
     res.json(pedido[0]);
@@ -31,6 +32,24 @@ const nuevoPedido = async (req, res) => {
   }
 };
 
+const cargarPedido = async (req,res) => {
+  try{
+    const pedidosDetalles = req.body;
+    const {id_pedido} = req.params;
+
+    pedidosDetalles.forEach(async(pedido) => {
+      await pedidosModel.cargarDetallePedido(28,pedido);
+    });
+    //Verificar que el usuario se encuentre dentro de la tabla pedido individual para este pedido
+    
+    res.send('ok');
+  }catch(error){
+    console.log(error);
+    res.status(500).json({error: "Error al cargar el pedido"});
+  }
+} 
+
 module.exports = {
   nuevoPedido,
+  cargarPedido
 };

@@ -1,40 +1,42 @@
 import styled from "styled-components";
 import { IoClose } from "react-icons/io5";
-import { toast } from 'react-toastify';
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import { cargarPedido } from "../../api/pedidos";
+import {showSwalSuccess, showToast,showToastError} from '../../utils/notificaciones';
 
-const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
+const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total,cambiarEstadoPedido}) => {
   let items = "";
-  const MySwal = withReactContent(Swal);
+
   const pedidoNuevo = JSON.parse(localStorage.getItem("pedido"));
-
-  const notificar = (texto) => toast.error(`${texto}`, {
-    position: "top-center",
-    autoClose: 1000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: false,
-    progress: undefined,
-    theme: "colored",
-    });;
-
 
   const quitarProducto = (id) => {
       setProductos((prevState) => {
         return [...prevState.filter((producto) => producto.id !== id)];  
       });
-      notificar('Se quito el producto de tu pedido!');
+      showToast('Se quito el producto de tu pedido!');
   };
 
   const handleCodigoVerificacion = async () =>{
     if(total === 0 ){
-      notificar('No existen productos en su pedido');
+      showToastError('No existen productos en su pedido');
       return;
     }
     
    //logica para cargar el pedido
+   try {
+    const result =  await cargarPedido(pedido);
+
+    if(!result.ok){
+      throw new Error('Algo salio mal');
+    }
+
+    showSwalSuccess('Info','Pedido creado con exito!');
+    cambiarEstado(false);
+    cambiarEstadoPedido(false);
+    localStorage.removeItem('pedido');
+   } catch (error) {
+    showToastError("Algo salio mal");
+    console.log(error);
+   }
   }
 
   if (pedido.length > 0) {

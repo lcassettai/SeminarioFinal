@@ -22,6 +22,7 @@ router.get("/sucursales/:id_sucursal/menu",middleware.verifyToken,productosContr
 router.get("/mesas",middleware.verifyToken,mesasController.getMesas);
 
 router.post("/pedidos/nuevo/:codigo_identificacion/:codigo_ingreso",middleware.verifyToken,pedidosController.nuevoPedido);
+router.post("/pedidos/:id_pedido",middleware.verifyToken,pedidosController.cargarPedido);
 
 router.get("/categorias",middleware.verifyToken,categoriasController.getAllCategorias);
 

@@ -24,7 +24,34 @@ const nuevoPedido = async (codigoAdecion, idCliente, idMesa) => {
   return resultado.rows;
 };
 
+const nuevoPedidoIndividual = async (idPedido, idCliente) => {
+  const resultado = await db.query(
+    `
+        INSERT INTO pedidos_individuales (created_at ,updated_at,id_pedido,id_cliente)
+        VALUES (now(),now(),$1,$2) RETURNING id_pedido_individual;
+    `,
+    [idPedido, 1]
+  );
+
+  return resultado.rows;
+};
+
+const cargarDetallePedido = async (id_pedido_individual, pedido) => {
+
+  const resultado = await db.query(
+    `
+    INSERT INTO pedidos_detalle(cantidad,costo,detalle,created_at,id_producto,id_pedido_individual)
+    VALUES($1,$2,'',now(),$3,$4) ;
+    `,
+    [pedido.cantidad,pedido.precio,pedido.id,id_pedido_individual]
+  );
+
+  return resultado.rows;
+};
+
 module.exports = {
+  getPedido,
   nuevoPedido,
-  getPedido
+  nuevoPedidoIndividual,
+  cargarDetallePedido
 };

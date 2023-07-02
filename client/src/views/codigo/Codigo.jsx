@@ -2,13 +2,10 @@ import Logo from "../../assets/img/logo.svg";
 import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { getMesaByCodigo } from "../../api/mesas";
+import { showSwalWarning } from "../../utils/notificaciones";
 
 const Codigo = () => {
-  const MySwal = withReactContent(Swal);
-
   const navigate = useNavigate();
   const primerElemento = useRef(null);
   const segundoElemento = useRef(null);
@@ -26,13 +23,7 @@ const Codigo = () => {
       !tercerElemento.current.value ||
       !cuartoElemento.current.value
     ) {
-      MySwal.fire({
-        title: <strong>Oops!</strong>,
-        html: <i>Debes llenar todos los campos</i>,
-        confirmButtonColor: "#009688",
-        confirmButtonText: "Aceptar",
-        icon: "warning",
-      });
+      showSwalWarning('Oops!','Debes llenar todos los campos');
       return;
     }
 
@@ -48,13 +39,7 @@ const Codigo = () => {
       localStorage.setItem("mesa",codigoMesa);  
       navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
     } else {
-      MySwal.fire({
-        title: <strong>Codigo incorrecto!</strong>,
-        html: <i>No se encontro el codigo</i>,
-        confirmButtonColor: "#009688",
-        confirmButtonText: "Aceptar",
-        icon: "warning",
-      });
+      showSwalWarning('Codigo incorrecto!','No se encontro el codigo');
     }
   };
 

@@ -30,6 +30,22 @@ const Menu = () => {
       }
     };
 
+    const pedido = localStorage.getItem('pedido');
+
+    if(pedido){
+      let pedidoNuevo = JSON.parse(localStorage.getItem('pedido'));
+      const fechaActual = new Date();
+      const fechaPedido = new Date(pedidoNuevo.created_at);
+      const diferenciaTiempo = fechaPedido - fechaActual;
+      const horasTranscurridas = diferenciaTiempo / (1000 * 60 * 60);
+
+      if (horasTranscurridas >= 1) {
+        localStorage.removeItem('pedido');
+      }else{
+        setNuevoPedido(true);
+      }  
+    }
+
     getMenuSucursal();
   }, []);
 
@@ -154,6 +170,7 @@ const Menu = () => {
       <ModalDetalle
         estado={estadoModalDetalle}
         cambiarEstado={setEstadoModalDetalle}
+        cambiarEstadoPedido={setNuevoPedido}
         setProductos={setProductos}
         pedido={pedido}
         total={
