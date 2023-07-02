@@ -18,10 +18,10 @@ const nuevoPedido = async (req, res) => {
     }
 
     const codigoIngreso = utils.generateRandomCode();
-    const usuario = req.usuario.id_usuario;
+    const cliente = req.usuario.id_cliente;
     
-    const pedidoInsertado = await pedidosModel.nuevoPedido(codigoIngreso,usuario,mesa[0].id_mesa);
-    await pedidosModel.nuevoPedidoIndividual(pedidoInsertado[0].id_pedido,usuario);
+    const pedidoInsertado = await pedidosModel.nuevoPedido(codigoIngreso,cliente,mesa[0].id_mesa);
+    await pedidosModel.nuevoPedidoIndividual(pedidoInsertado[0].id_pedido,cliente);
 
     const pedido = await pedidosModel.getPedido(pedidoInsertado[0].id_pedido);
     res.json(pedido[0]);
@@ -35,14 +35,23 @@ const nuevoPedido = async (req, res) => {
 const cargarPedido = async (req,res) => {
   try{
     const pedidosDetalles = req.body;
+    const cliente = req.usuario.id_cliente;
     const {id_pedido} = req.params;
 
+    const pedidoIndividual = await pedidosModel.getPedidoIndividual(id_pedido,cliente);
+
+    if(!pedidoIndividual || pedidoIndividual <= 0){
+      res.status(400).json({
+        error: "El cliente no esta autorizado a cargar elementos en este pedido"
+      });
+      return;
+    }
+
     pedidosDetalles.forEach(async(pedido) => {
-      await pedidosModel.cargarDetallePedido(28,pedido);
+      await pedidosModel.cargarDetallePedido(pedidoIndividual[0].id_pedido_individual,pedido);
     });
-    //Verificar que el usuario se encuentre dentro de la tabla pedido individual para este pedido
     
-    res.send('ok');
+    res.json({status: "Pedido generado correctamente"});
   }catch(error){
     console.log(error);
     res.status(500).json({error: "Error al cargar el pedido"});

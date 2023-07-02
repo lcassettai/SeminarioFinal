@@ -23,11 +23,7 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total,cambiarEst
     
    //logica para cargar el pedido
    try {
-    const result =  await cargarPedido(pedido);
-
-    if(!result.ok){
-      throw new Error('Algo salio mal');
-    }
+    const data =  await cargarPedido(pedido);
 
     showSwalSuccess('Info','Pedido creado con exito!');
     cambiarEstado(false);

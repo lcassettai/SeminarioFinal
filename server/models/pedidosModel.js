@@ -3,14 +3,24 @@ const db = require("../services/db");
 const getPedido = async (idPedido) => {
   const resultado = await db.query(
     `SELECT id_pedido,nro_pedido, created_at ,updated_at,codigo_adecion,
-                                        id_mesa,id_mozo,id_estado,id_cliente_inicial
-                                        FROM pedidos 
-                                        WHERE id_pedido = $1`,
+        id_mesa,id_mozo,id_estado,id_cliente_inicial
+      FROM pedidos 
+      WHERE id_pedido = $1`,
     [idPedido]
   );
 
   return resultado.rows;
 };
+
+const getPedidoIndividual = async (idPedido,idCliente) => {
+    const resultado = await db.query(`
+      select * 
+      from pedidos_individuales
+      where id_pedido = $1 AND id_cliente = $2
+    `,[idPedido,idCliente]);
+
+    return resultado.rows;
+}
 
 const nuevoPedido = async (codigoAdecion, idCliente, idMesa) => {
   const resultado = await db.query(
@@ -18,7 +28,7 @@ const nuevoPedido = async (codigoAdecion, idCliente, idMesa) => {
         INSERT INTO pedidos (created_at ,updated_at,codigo_adecion,id_mesa,id_mozo,id_estado,id_cliente_inicial)
         VALUES (now(),now(),$1,$2,null,1,$3) RETURNING id_pedido;
     `,
-    [codigoAdecion, idMesa, 1]
+    [codigoAdecion, idMesa, idCliente]
   );
 
   return resultado.rows;
@@ -30,7 +40,7 @@ const nuevoPedidoIndividual = async (idPedido, idCliente) => {
         INSERT INTO pedidos_individuales (created_at ,updated_at,id_pedido,id_cliente)
         VALUES (now(),now(),$1,$2) RETURNING id_pedido_individual;
     `,
-    [idPedido, 1]
+    [idPedido, idCliente]
   );
 
   return resultado.rows;
@@ -53,5 +63,6 @@ module.exports = {
   getPedido,
   nuevoPedido,
   nuevoPedidoIndividual,
-  cargarDetallePedido
+  cargarDetallePedido,
+  getPedidoIndividual
 };
