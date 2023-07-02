@@ -2,12 +2,10 @@ import QrScanner from "../../components/QrScanner";
 import NavMenu from "../../layout/NavMenu";
 import Titulo from "../../components/Titulo";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { getMesaByCodigo } from "../../api/mesas";
+import {showSwalWarning} from "../../utils/notificaciones"
 
 const EscanearQR = () => {
-  const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
 
   const scannerHandler = async (scanData) => {
@@ -19,13 +17,7 @@ const EscanearQR = () => {
       localStorage.setItem("mesa",codigoMesa);    
       navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
     } else {
-      MySwal.fire({
-        title: <strong>Codigo incorrecto!</strong>,
-        html: <i>No se encontro el codigo</i>,
-        confirmButtonColor: "#009688",
-        confirmButtonText: "Aceptar",
-        icon: "warning",
-      });
+      showSwalWarning('Codigo incorrecto!','No se encontro el codigo');
     }
   };
 

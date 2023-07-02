@@ -63,3 +63,24 @@ export const showSwalError = (titulo,texto) => {
 
     MySwal.fire(mensaje);
 }
+
+export const requestTableCode = async() => {
+    const { value: codigoVerificacion } = await Swal.fire({
+        html: '<b>Ingrese el codigo de 6 digitos provisto por el mozo para iniciar un nuevo pedido</b>',
+        input: 'text',
+        inputPlaceholder:'Codigo de verificacion',
+        confirmButtonColor: "#009688",
+        confirmButtonText: "Aceptar",
+        denyButtonText: "Cancelar",
+        showDenyButton:true,
+        reverseButtons:true,
+        inputAttributes: {
+          maxlength: 6,
+          autocapitalize: 'on',
+          required: 'on',
+          autocorrect: 'off'
+        }
+      })
+
+      return codigoVerificacion;
+}
