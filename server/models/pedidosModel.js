@@ -22,6 +22,20 @@ const getPedidoIndividual = async (idPedido,idCliente) => {
     return resultado.rows;
 }
 
+const getPedidoEstadoNuevo = async (idCliente,idMesa) => {
+  const result = await db.query(`
+    SELECT p.id_pedido,nro_pedido,p.created_at,codigo_adecion,id_mozo,id_estado,id_cliente_inicial
+    FROM PEDIDOS P
+    INNER JOIN PEDIDOS_INDIVIDUALES PI ON P.ID_PEDIDO = PI.ID_PEDIDO
+    INNER JOIN MESAS M ON M.ID_MESA = P.ID_MESA
+    WHERE P.ID_ESTADO = 1 
+      AND PI.ID_CLIENTE = $1
+      AND P.ID_MESA = $2
+  `,[idCliente,idMesa]);
+
+  return result.rows;
+}
+
 const nuevoPedido = async (codigoAdecion, idCliente, idMesa) => {
   const resultado = await db.query(
     `
@@ -59,10 +73,26 @@ const cargarDetallePedido = async (id_pedido_individual, pedido) => {
   return resultado.rows;
 };
 
+const updateEstadoPedido = async (pedido, estado) => {
+
+  const resultado = await db.query(
+    `
+    UPDATE pedidos
+    SET id_estado = $1
+    WHERE id_pedido = $2
+    `,
+    [estado,pedido]
+  );
+
+  return resultado.rows;
+};
+
 module.exports = {
   getPedido,
   nuevoPedido,
   nuevoPedidoIndividual,
   cargarDetallePedido,
-  getPedidoIndividual
+  getPedidoIndividual,
+  getPedidoEstadoNuevo,
+  updateEstadoPedido
 };

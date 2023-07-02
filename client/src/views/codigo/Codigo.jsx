@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMesaByCodigo } from "../../api/mesas";
+import { getPedidoEstadoNuevo } from "../../api/pedidos";
 import { showSwalWarning } from "../../utils/notificaciones";
 
 const Codigo = () => {
@@ -35,19 +36,32 @@ const Codigo = () => {
 
     const mesa = await buscarMesaSucursal(codigoMesa);
 
-    if (mesa) {
-      localStorage.setItem("mesa",codigoMesa);  
-      navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
-    } else {
+    if (!mesa) {
       showSwalWarning('Codigo incorrecto!','No se encontro el codigo');
+      return;
+    }
+
+    const pedido = await buscarPedidosEstadoNuevo(mesa.id_mesa);
+
+    if(pedido){
+      localStorage.setItem('pedido',JSON.stringify(pedido))
+    }
+
+    localStorage.setItem("mesa",codigoMesa);  
+    navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
+  };
+
+  const buscarPedidosEstadoNuevo = async (idMesa) => {
+    try {
+      return await getPedidoEstadoNuevo(idMesa);     
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const buscarMesaSucursal = async (codigoMesa) => {
     try {
-      const data = await getMesaByCodigo(codigoMesa);
-      
-      return data;
+      return await getMesaByCodigo(codigoMesa);     
     } catch (error) {
       console.error();
     }

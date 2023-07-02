@@ -50,7 +50,8 @@ const cargarPedido = async (req,res) => {
     pedidosDetalles.forEach(async(pedido) => {
       await pedidosModel.cargarDetallePedido(pedidoIndividual[0].id_pedido_individual,pedido);
     });
-    
+
+    pedidosModel.updateEstadoPedido(id_pedido,2);
     res.json({status: "Pedido generado correctamente"});
   }catch(error){
     console.log(error);
@@ -58,7 +59,24 @@ const cargarPedido = async (req,res) => {
   }
 } 
 
+const getPedidoMesaEstadoNuevo = async (req,res) => {
+  try {
+    const cliente = req.usuario.id_cliente;
+    const {id_mesa} = req.params;
+
+    const pedido = await pedidosModel.getPedidoEstadoNuevo(cliente,id_mesa);
+
+    if(pedido){
+      res.json(pedido[0]); 
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error: "Error al obtener el pedido"});
+  }
+}
+
 module.exports = {
   nuevoPedido,
-  cargarPedido
+  cargarPedido,
+  getPedidoMesaEstadoNuevo
 };

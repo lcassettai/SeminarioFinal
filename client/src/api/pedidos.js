@@ -20,6 +20,20 @@ export const iniciarPedidoNuevo = async (codigoVerificacion) => {
   return await handleResponse(response);
 };
 
+export const getPedidoEstadoNuevo = async (idMesa) => {
+  const token = window.localStorage.getItem("token");
+
+  const response = await fetch(`${baseUrl}/nuevo/${idMesa}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  return await handleResponse(response);
+};
+
 export const cargarPedido = async (pedidoDetalle) => {
   const token = window.localStorage.getItem("token");
   const mesa = window.localStorage.getItem("mesa");
