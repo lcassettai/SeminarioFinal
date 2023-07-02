@@ -1,3 +1,4 @@
+import {handleResponse}  from './middleWare';
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/sucursales`;
 
 export const getAllRestaurantes = async () => {
@@ -10,7 +11,7 @@ export const getAllRestaurantes = async () => {
         }
     });
 
-    return response;
+    return await handleResponse(response);
 }
 
 export const getRestaurante = async (id) => {
@@ -23,7 +24,7 @@ export const getRestaurante = async (id) => {
         }
     });
     
-    return response;
+    return await handleResponse(response);
 }
 
 export const getMenu = async (idSucursal) =>{
@@ -36,5 +37,5 @@ export const getMenu = async (idSucursal) =>{
         }
     });
 
-    return response;
+    return await handleResponse(response);
 }

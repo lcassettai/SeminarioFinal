@@ -1,3 +1,4 @@
+import {handleResponse}  from './middleWare';
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/mesas`;
 
 export const getMesaByCodigo = async (codigo) => {    
@@ -11,5 +12,5 @@ export const getMesaByCodigo = async (codigo) => {
         },
     });
 
-    return response;
+    return await handleResponse(response);
 }

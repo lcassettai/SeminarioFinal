@@ -1,3 +1,4 @@
+import {handleResponse}  from './middleWare';
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/pedidos`;
 
 export const iniciarPedidoNuevo = async (codigoVerificacion) => {
@@ -8,7 +9,7 @@ export const iniciarPedidoNuevo = async (codigoVerificacion) => {
     return null;
   }
 
-  const response = fetch(`${baseUrl}/nuevo/${mesa}/${codigoVerificacion}`, {
+  const response = await fetch(`${baseUrl}/nuevo/${mesa}/${codigoVerificacion}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +17,7 @@ export const iniciarPedidoNuevo = async (codigoVerificacion) => {
     },
   });
 
-  return response;
+  return await handleResponse(response);
 };
 
 export const cargarPedido = async (pedidoDetalle) => {
@@ -34,7 +35,7 @@ export const cargarPedido = async (pedidoDetalle) => {
 
   const idPedido = JSON.parse(pedido).id_pedido;
 
-  const response = fetch(`${baseUrl}/${idPedido}`, {
+  const response = await fetch(`${baseUrl}/${idPedido}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,5 +44,5 @@ export const cargarPedido = async (pedidoDetalle) => {
     body: JSON.stringify(pedidoDetalle),
   });
 
-  return response;
+  return await handleResponse(response);
 };

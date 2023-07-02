@@ -45,9 +45,8 @@ const Codigo = () => {
 
   const buscarMesaSucursal = async (codigoMesa) => {
     try {
-      const result = await getMesaByCodigo(codigoMesa);
-      const data = await result.json();
-
+      const data = await getMesaByCodigo(codigoMesa);
+      
       return data;
     } catch (error) {
       console.error();

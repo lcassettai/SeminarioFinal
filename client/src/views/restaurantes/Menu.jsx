@@ -20,8 +20,7 @@ const Menu = () => {
   useEffect(() => {
     const getMenuSucursal = async () => {
       try {
-        const response = await getMenu(idRestaurante);
-        const data = await response.json();
+        const data = await getMenu(idRestaurante);
 
         setListadoProductos(data);
         setListadoProductosInicial(data);

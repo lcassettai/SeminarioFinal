@@ -14,8 +14,7 @@ const Restaurantes = () => {
   useEffect(() => {
     const fetchSucursales = async () => {
       try {
-        const response = await getAllRestaurantes();
-        const data = await response.json();
+        const data = await getAllRestaurantes();
         
         setListado(data);
         setListadoIncial(data);

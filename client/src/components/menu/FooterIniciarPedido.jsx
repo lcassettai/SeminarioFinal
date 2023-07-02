@@ -47,9 +47,8 @@ const FooterIniciarPedido = (props) => {
           })
           
           if (codigoVerificacion) {
-            const response = await iniciarPedidoNuevo(codigoVerificacion);
-            const data = await response.json();
-
+            const data = await iniciarPedidoNuevo(codigoVerificacion);
+            console.log(data);
             if(data){
                 localStorage.setItem("pedido",JSON.stringify(data));
                 props.setNuevoPedido(true);

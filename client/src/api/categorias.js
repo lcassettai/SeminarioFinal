@@ -1,3 +1,4 @@
+import {handleResponse}  from './middleWare';
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/categorias`;
 
 export const getCategoriasSucursal = async (idSucursal) => {
@@ -10,5 +11,5 @@ export const getCategoriasSucursal = async (idSucursal) => {
         }
     });
 
-    return response;
+    return await handleResponse(response);
 }
