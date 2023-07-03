@@ -13,22 +13,35 @@ const EscanearQR = () => {
 
     const mesa = await buscarMesaSucursal(codigoMesa);
 
-    if (mesa) {
-      localStorage.setItem("mesa",codigoMesa);    
-      navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
-    } else {
+
+    if (!mesa) {
       showSwalWarning('Codigo incorrecto!','No se encontro el codigo');
+      return;
     }
+
+    const pedido = await buscarPedidosEstadoNuevo(mesa.id_mesa);
+
+    if(pedido){
+      localStorage.setItem('pedido',JSON.stringify(pedido))
+    }
+
+    localStorage.setItem("mesa",codigoMesa);    
+    navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
   };
 
   const buscarMesaSucursal = async (codigoMesa) => {
     try {
-      const result = await getMesaByCodigo(codigoMesa);
-      const data = await result.json();
-
-      return data;
+      return await getMesaByCodigo(codigoMesa);
     } catch (error) {
       console.error();
+    }
+  };
+
+  const buscarPedidosEstadoNuevo = async (idMesa) => {
+    try {
+      return await getPedidoEstadoNuevo(idMesa);     
+    } catch (error) {
+      console.error(error);
     }
   };
 
