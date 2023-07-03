@@ -1,19 +1,21 @@
 import Logo from "../../assets/img/logo.svg";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { getMesaByCodigo } from "../../api/mesas";
+import { getPedidoEstadoNuevo } from "../../api/pedidos";
+import { showSwalWarning } from "../../utils/notificaciones";
 
 const Codigo = () => {
-  const MySwal = withReactContent(Swal);
-
   const navigate = useNavigate();
   const primerElemento = useRef(null);
   const segundoElemento = useRef(null);
   const tercerElemento = useRef(null);
   const cuartoElemento = useRef(null);
+  
+  useEffect(() => {
+    document.querySelector(`input[name=codigo-1]`).focus();
+  });
 
   const handleCodigo = async () => {
     if (
@@ -22,13 +24,7 @@ const Codigo = () => {
       !tercerElemento.current.value ||
       !cuartoElemento.current.value
     ) {
-      MySwal.fire({
-        title: <strong>Oops!</strong>,
-        html: <i>Debes llenar todos los campos</i>,
-        confirmButtonColor: "#009688",
-        confirmButtonText: "Aceptar",
-        icon: "warning",
-      });
+      showSwalWarning('Oops!','Debes llenar todos los campos');
       return;
     }
 
@@ -40,25 +36,32 @@ const Codigo = () => {
 
     const mesa = await buscarMesaSucursal(codigoMesa);
 
-    if (mesa) {
-      navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
-    } else {
-      MySwal.fire({
-        title: <strong>Codigo incorrecto!</strong>,
-        html: <i>No se encontro el codigo</i>,
-        confirmButtonColor: "#009688",
-        confirmButtonText: "Aceptar",
-        icon: "warning",
-      });
+    if (!mesa) {
+      showSwalWarning('Codigo incorrecto!','No se encontro el codigo');
+      return;
+    }
+
+    const pedido = await buscarPedidosEstadoNuevo(mesa.id_mesa);
+
+    if(pedido){
+      localStorage.setItem('pedido',JSON.stringify(pedido))
+    }
+
+    localStorage.setItem("mesa",codigoMesa);  
+    navigate(`/restaurantes/${mesa.id_sucursal}/menu`);
+  };
+
+  const buscarPedidosEstadoNuevo = async (idMesa) => {
+    try {
+      return await getPedidoEstadoNuevo(idMesa);     
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const buscarMesaSucursal = async (codigoMesa) => {
     try {
-      const result = await getMesaByCodigo(codigoMesa);
-      const data = await result.json();
-
-      return data;
+      return await getMesaByCodigo(codigoMesa);     
     } catch (error) {
       console.error();
     }
@@ -68,16 +71,36 @@ const Codigo = () => {
     const numOfFields = 4;
     const { maxLength, value, name } = e.target;
     const [fieldName, fieldIndex] = name.split("-");
+    const posicion = parseInt(fieldIndex, 10);
+    let next = null;    
+    const key = e.key; // const {key} = event; ES6+
 
-    if (parseInt(fieldIndex, 10) < numOfFields) {
+    if (key === "Backspace" || key === "Delete") {
+      if (posicion > 0) {
+        // Get the next input field
+        const next = document.querySelector(
+          `input[name=codigo-${posicion - 1}]`
+        );
+  
+        // If found, focus the next field
+        if (next !== null) {
+          next.value = '';
+          next.focus();
+        }
+      }
+      return;
+    }
+
+    if (posicion < numOfFields) {
       // Get the next input field
-      const nextSibling = document.querySelector(
-        `input[name=codigo-${parseInt(fieldIndex, 10) + 1}]`
+      next = document.querySelector(
+        `input[name=codigo-${posicion + 1}]`
       );
 
       // If found, focus the next field
-      if (nextSibling !== null) {
-        nextSibling.focus();
+      if (next !== null) {
+        next.value = '';
+        next.focus();
       }
     }
   };
@@ -102,6 +125,7 @@ const Codigo = () => {
               className="display-block input-text-lg text-center uppercase"
               ref={primerElemento}
               onKeyUp={handleFocus}
+              onClick={ (e) => {e.target.value = ''} }
             ></input>
           </div>
           <div className="mx-2 w-12">
@@ -113,6 +137,7 @@ const Codigo = () => {
               className="display-block input-text-lg text-center uppercase"
               ref={segundoElemento}
               onKeyUp={handleFocus}
+              onClick={ (e) => {e.target.value = ''} }
             ></input>
           </div>
           <div className="mx-2 w-12">
@@ -124,6 +149,7 @@ const Codigo = () => {
               className="display-block input-text-lg text-center uppercase"
               ref={tercerElemento}
               onKeyUp={handleFocus}
+              onClick={ (e) => {e.target.value = ''} }
             ></input>
           </div>
           <div className="mx-2 w-12">
@@ -135,6 +161,7 @@ const Codigo = () => {
               className="display-block input-text-lg text-center uppercase"
               ref={cuartoElemento}
               onKeyUp={handleFocus}
+              onClick={ (e) => {e.target.value = ''} }
             ></input>
           </div>
         </div>

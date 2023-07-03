@@ -3,6 +3,7 @@ import NavMenu from "../../layout/NavMenu";
 import Producto from "../../components/menu/Producto";
 import FiltroCategoriasMenu from "../../components/menu/FiltroCategoriasMenu";
 import FooterResumen from "../../components/menu/FooterResumen";
+import FooterIniciarPedido from "../../components/menu/FooterIniciarPedido";
 import ModalDetalle from "../../components/menu/ModalDetalle";
 import { useEffect, useState } from "react";
 import { getMenu } from "../../api/restaurantes";
@@ -13,13 +14,13 @@ const Menu = () => {
   const [pedido, setProductos] = useState([]);
   const [listadoProductos, setListadoProductos] = useState([]);
   const [listadoProductosInicial, setListadoProductosInicial] = useState([]);
-  const [categoriasSeleccionadas,setCategoriasSeleccionadas] = useState([]);
+  const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([]);
+  const [nuevoPedido, setNuevoPedido] = useState(false);
 
   useEffect(() => {
     const getMenuSucursal = async () => {
       try {
-        const response = await getMenu(idRestaurante);
-        const data = await response.json();
+        const data = await getMenu(idRestaurante);
 
         setListadoProductos(data);
         setListadoProductosInicial(data);
@@ -28,48 +29,72 @@ const Menu = () => {
       }
     };
 
+    const pedido = localStorage.getItem('pedido');
+
+    if(pedido){
+      let pedidoNuevo = JSON.parse(localStorage.getItem('pedido'));
+      const fechaActual = new Date();
+      const fechaPedido = new Date(pedidoNuevo.created_at);
+      const diferenciaTiempo = fechaPedido - fechaActual;
+      const horasTranscurridas = diferenciaTiempo / (1000 * 60 * 60);
+
+      if (horasTranscurridas >= 1) {
+        localStorage.removeItem('pedido');
+      }else{
+        setNuevoPedido(true);
+      }  
+    }
+
     getMenuSucursal();
   }, []);
 
   const productosFilter = (event) => {
-    let productosFiltrados = listadoProductosInicial.filter(({descripcion}) => {
-        return descripcion.toLowerCase().includes(event.target.value.toLowerCase())
-    })
+    let productosFiltrados = listadoProductosInicial.filter(
+      ({ descripcion }) => {
+        return descripcion
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase());
+      }
+    );
 
-    setListadoProductos(productosFiltrados);   
+    setListadoProductos(productosFiltrados);
   };
 
   const productosFilterCategorias = (categorias) => {
-    if(categorias.length === 0){
+    if (categorias.length === 0) {
       setListadoProductos(listadoProductosInicial);
       return;
     }
 
-    let productosFiltrados = listadoProductosInicial.filter(({id_categoria}) => {
-        return categorias.includes(id_categoria.toString())
-    })
+    let productosFiltrados = listadoProductosInicial.filter(
+      ({ id_categoria }) => {
+        return categorias.includes(id_categoria.toString());
+      }
+    );
 
     setListadoProductos(productosFiltrados);
   };
 
   const categoriaSeleccionada = (elemento) => {
-    if(categoriasSeleccionadas.includes(elemento)){
-      let cat = categoriasSeleccionadas.filter( (categoria) => {
+    if (categoriasSeleccionadas.includes(elemento)) {
+      let cat = categoriasSeleccionadas.filter((categoria) => {
         return categoria != elemento;
-      })
+      });
       setCategoriasSeleccionadas(cat);
-    }else{
+    } else {
       setCategoriasSeleccionadas((ele) => {
-        return [...ele,elemento]
-      });    
-    } 
+        return [...ele, elemento];
+      });
+    }
+  };
+
+  const handleEstadoPedido = (estado) =>{
+    setNuevoPedido(estado);
   }
 
-  useEffect( () => {
-    productosFilterCategorias(categoriasSeleccionadas);   
-  },[categoriasSeleccionadas]);
-
-  
+  useEffect(() => {
+    productosFilterCategorias(categoriasSeleccionadas);
+  }, [categoriasSeleccionadas]);
 
   return (
     <>
@@ -86,7 +111,9 @@ const Menu = () => {
             onChange={productosFilter}
           ></input>
         </div>
-        <FiltroCategoriasMenu setOnCategoriaSeleccionada={categoriaSeleccionada}/>
+        <FiltroCategoriasMenu
+          setOnCategoriaSeleccionada={categoriaSeleccionada}
+        />
         <div className="mt-4">
           <h3 className="form-label inline-block mb-2 text-lg text-gray-700 font-bold">
             Productos
@@ -105,6 +132,7 @@ const Menu = () => {
                     precio={producto.precio}
                     imagen={producto.imagen}
                     detalle={producto.detalle}
+                    nuevoPedido={nuevoPedido}
                     setProductos={setProductos}
                   />
                 );
@@ -112,29 +140,36 @@ const Menu = () => {
             : "Cargando..."}
         </div>
       </div>
-      <FooterResumen
-        setEstadoModalDetalle={setEstadoModalDetalle}
-        cantidad={
-          pedido.length === 0
-            ? 0
-            : pedido.reduce(
-                (acumulador, actual) => acumulador + actual.cantidad,
-                0
-              )
-        }
-        total={
-          pedido.length === 0
-            ? 0
-            : pedido.reduce(
-                (acumulador, actual) =>
-                  acumulador + actual.cantidad * actual.precio,
-                0
-              )
-        }
-      />
+
+      {!nuevoPedido ? (
+        <FooterIniciarPedido setNuevoPedido={handleEstadoPedido} />
+      ) : (
+        <FooterResumen
+          setEstadoModalDetalle={setEstadoModalDetalle}
+          cantidad={
+            pedido.length === 0
+              ? 0
+              : pedido.reduce(
+                  (acumulador, actual) => acumulador + actual.cantidad,
+                  0
+                )
+          }
+          total={
+            pedido.length === 0
+              ? 0
+              : pedido.reduce(
+                  (acumulador, actual) =>
+                    acumulador + actual.cantidad * actual.precio,
+                  0
+                )
+          }
+        />
+      )}
+
       <ModalDetalle
         estado={estadoModalDetalle}
         cambiarEstado={setEstadoModalDetalle}
+        cambiarEstadoPedido={setNuevoPedido}
         setProductos={setProductos}
         pedido={pedido}
         total={

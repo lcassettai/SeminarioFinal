@@ -6,6 +6,7 @@ const sucursalesController = require("../controllers/sucursalesController");
 const productosController = require("../controllers/productosController");
 const mesasController = require("../controllers/mesasController");
 const categoriasController = require("../controllers/categoriasController");
+const pedidosController = require("../controllers/pedidosController");
 
 const router = Router();
 
@@ -19,6 +20,10 @@ router.get("/sucursales/:id",middleware.verifyToken, sucursalesController.getSuc
 router.get("/sucursales/:id_sucursal/menu",middleware.verifyToken,productosController.getAllProductos);
 
 router.get("/mesas",middleware.verifyToken,mesasController.getMesas);
+
+router.post("/pedidos/nuevo/:codigo_identificacion/:codigo_ingreso",middleware.verifyToken,pedidosController.nuevoPedido);
+router.get("/pedidos/nuevo/:id_mesa",middleware.verifyToken,pedidosController.getPedidoMesaEstadoNuevo);
+router.post("/pedidos/:id_pedido",middleware.verifyToken,pedidosController.cargarPedido);
 
 router.get("/categorias",middleware.verifyToken,categoriasController.getAllCategorias);
 

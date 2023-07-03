@@ -15,10 +15,8 @@ const Restaurante = () => {
   useEffect(() => {
     const fetchRestaurante = async (id) => {
       try {
-        const response = await getRestaurante(id);
-        const data = await response.json();
+        const data = await getRestaurante(id);
         setRestaurante(data);
-        console.log(data);
       } catch (error) {
         console.error(error);
       }

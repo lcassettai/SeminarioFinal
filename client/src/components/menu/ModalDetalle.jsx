@@ -1,28 +1,39 @@
 import styled from "styled-components";
 import { IoClose } from "react-icons/io5";
-import { toast } from 'react-toastify';
+import { cargarPedido } from "../../api/pedidos";
+import {showSwalSuccess, showToast,showToastError} from '../../utils/notificaciones';
 
-const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
+const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total,cambiarEstadoPedido}) => {
   let items = "";
 
-  const notificar = () => toast.error(`Se quito el producto de tu pedido!`, {
-    position: "top-center",
-    autoClose: 1000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: false,
-    progress: undefined,
-    theme: "colored",
-    });;
-
+  const pedidoNuevo = JSON.parse(localStorage.getItem("pedido"));
 
   const quitarProducto = (id) => {
       setProductos((prevState) => {
         return [...prevState.filter((producto) => producto.id !== id)];  
       });
-      notificar();
+      showToast('Se quito el producto de tu pedido!');
   };
+
+  const handleCodigoVerificacion = async () =>{
+    if(total === 0 ){
+      showToastError('No existen productos en su pedido');
+      return;
+    }
+    
+   //logica para cargar el pedido
+   try {
+    const data =  await cargarPedido(pedido);
+
+    showSwalSuccess('Info','Pedido creado con exito!');
+    cambiarEstado(false);
+    cambiarEstadoPedido(false);
+    localStorage.removeItem('pedido');
+   } catch (error) {
+    showToastError("Algo salio mal");
+    console.log(error);
+   }
+  }
 
   if (pedido.length > 0) {
     items = pedido.map((p) => {
@@ -67,7 +78,9 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
               <h1 className="text-teal-800 font-bold text-2xl mb-4">
                 DETALLE DEL PEDIDO
               </h1>
-              <span className="font-bold pt-4 ">Pedido Nro : 15645</span>
+              <span className="font-bold pt-4 ">Pedido Nro : #{pedidoNuevo.nro_pedido  }</span>
+              <br></br>
+              <span className="font-bold pt-4 ">Codigo : {pedidoNuevo.codigo_adecion}</span>
               <div className="mb-4  ">
                 {items}
               </div>
@@ -75,7 +88,9 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total}) => {
             </div>
             <div className="bg-teal-800 w-full py-4 text-white fixed bottom-0">
               <div className="text-center text-xl font-bold">
-                Finalizar pedido
+                <button onClick={handleCodigoVerificacion}>
+                    Finalizar Pedido
+                </button>
               </div>
             </div>
           </div>

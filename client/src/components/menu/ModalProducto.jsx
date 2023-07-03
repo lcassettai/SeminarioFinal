@@ -17,6 +17,7 @@ const ModalProducto = ({
   setProductos,
   setEstadoModal,
   idProducto,
+  nuevoPedido,
   detalle
 }) => {
   const [cantidad, setCantidad] = useState(0);
@@ -41,9 +42,25 @@ const ModalProducto = ({
     draggable: false,
     progress: undefined,
     theme: "colored",
-    });;
+    });
+
+    const notificarError = (mensaje) => toast.error (mensaje, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "colored",
+      });
 
   const agregarAlPedido = () => {
+
+    if(!nuevoPedido){
+      notificarError('Debe iniciar un pedido');
+      return;
+    }
     //Habria que cambiar el nombre del producto por un id
     setProductos((prevState) => {
       let productoEnCarrito = prevState.find((prod) => prod.id === idProducto);

@@ -10,8 +10,10 @@ function NavMenu(props) {
     const navigate = useNavigate();
 
     const handleLogOut = () => {
-        localStorage.setItem("token",null);
-        navigate("/");
+        localStorage.removeItem("token");
+        localStorage.removeItem('mesa');
+        localStorage.removeItem('pedido');
+        navigate("/login");
     }
 
     return (
@@ -34,19 +36,13 @@ function NavMenu(props) {
                                         to="/"
                                         className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
-                                        Ver Carta
+                                        Inicio
                                     </Link>
                                     <Link
                                         to="/restaurantes"
                                         className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
-                                        Ver Pedidos
-                                    </Link>
-                                    <Link
-                                        to="/restaurantes"
-                                        className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Restaurantes
+                                        Mis Pedidos
                                     </Link>
                                     <Link
                                         to="/restaurantes"
@@ -125,13 +121,13 @@ function NavMenu(props) {
                                         to="/"
                                         className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                                     >
-                                        Ver Carta
+                                        Inicio
                                     </Link>
                                     <Link
                                         to="/"
                                         className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                                     >
-                                        Ver Pedidos
+                                        Mis Pedidos
                                     </Link>
                                     <Link
                                         to="/"
@@ -147,7 +143,7 @@ function NavMenu(props) {
                                     </Link>
                                     <button
                                         onClick={handleLogOut}
-                                        className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                        className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                                     >
                                         Cerrar Sesion
                                     </button>

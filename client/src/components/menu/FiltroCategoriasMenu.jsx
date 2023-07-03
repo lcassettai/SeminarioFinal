@@ -19,9 +19,9 @@ const FiltroCategoriasMenu = ({setOnCategoriaSeleccionada}) => {
   useEffect(() => {
     const getCategorias = async () => {
       try {
-        const result = await getCategoriasSucursal(idRestaurante);
+        const data = await getCategoriasSucursal(idRestaurante);
         
-        setCategorias(await result.json());
+        setCategorias(data);
       } catch (error) {
         console.log(error);
       }
