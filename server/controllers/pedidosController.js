@@ -13,7 +13,7 @@ const nuevoPedido = async (req, res) => {
 
     //Validamos que el codigo de la mesa coincida con el codigo de verificacion
     if (!mesa || mesa.length <= 0) {
-      res.status(404).json(null);
+      res.status(404).json();
       return;
     }
 
@@ -66,9 +66,11 @@ const getPedidoMesaEstadoNuevo = async (req,res) => {
 
     const pedido = await pedidosModel.getPedidoEstadoNuevo(cliente,id_mesa);
 
-    if(pedido){
-      res.json(pedido[0]); 
+    if(!pedido || pedido.length <= 0){
+      res.status(404).json(null); 
     }
+    
+    res.json(pedido[0]); 
   } catch (error) {
     console.log(error);
     res.status(500).json({error: "Error al obtener el pedido"});

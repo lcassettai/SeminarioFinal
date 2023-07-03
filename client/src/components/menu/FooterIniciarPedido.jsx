@@ -7,17 +7,21 @@ const FooterIniciarPedido = (props) => {
         const codigoVerificacion = await requestTableCode();
           
           if (codigoVerificacion) {
-            const data = await iniciarPedidoNuevo(codigoVerificacion);
+            try {
+              const data = await iniciarPedidoNuevo(codigoVerificacion);
 
-            if(data){
-                localStorage.setItem("pedido",JSON.stringify(data));
-                props.setNuevoPedido(true);
-                showToast('Se inicio un nuevo pedido con exito!');
-            }else{
-                localStorage.removeItem("pedido");
-                props.setNuevoPedido(false);
-                showToastError('El codigo ingresado es incorrecto!');
-            }                   
+              if(data){
+                  localStorage.setItem("pedido",JSON.stringify(data));
+                  props.setNuevoPedido(true);
+                  showToast('Se inicio un nuevo pedido con exito!');
+              }else{
+                  localStorage.removeItem("pedido");
+                  props.setNuevoPedido(false);
+                  showToastError('El codigo ingresado es incorrecto!');
+              }         
+            } catch (error) {
+              console.log(error);
+            }          
           }
     }
   

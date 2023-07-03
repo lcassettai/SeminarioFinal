@@ -3,7 +3,8 @@ import NavMenu from "../../layout/NavMenu";
 import Titulo from "../../components/Titulo";
 import { useNavigate } from "react-router-dom";
 import { getMesaByCodigo } from "../../api/mesas";
-import {showSwalWarning} from "../../utils/notificaciones"
+import {showSwalWarning} from "../../utils/notificaciones";
+import { getPedidoEstadoNuevo } from "../../api/pedidos";
 
 const EscanearQR = () => {
   const navigate = useNavigate();
