@@ -1,5 +1,6 @@
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import {formatearEnPesos} from "../../utils/moneda";
 
 const Pedido = ({ pedido }) => {
   function addZero(i) {
@@ -42,7 +43,7 @@ const Pedido = ({ pedido }) => {
               Total
               <br />
             </span>{" "}
-            ${pedido.total}
+            {formatearEnPesos(pedido.total)}
           </div>
         </div>
         <div className="  text-teal-700  text-3xl">

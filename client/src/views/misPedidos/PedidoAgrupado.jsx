@@ -1,5 +1,6 @@
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import {formatearEnPesos} from "../../utils/moneda";
 
 const PedidoAgrupado = ({ pedido }) => {
   const fechaFormateada = new Date(pedido.fecha_generacion).toLocaleDateString();
@@ -15,7 +16,7 @@ const PedidoAgrupado = ({ pedido }) => {
             <span className="font-bold">Lugar <br/></span> {pedido.nombre}
           </div>      
           <div className="text-center">
-            <span className="font-bold">Total<br/></span> ${pedido.total}
+            <span className="font-bold">Total<br/></span> {formatearEnPesos(pedido.total)}
           </div>      
         </div>
         <div className="  text-teal-700  text-3xl">

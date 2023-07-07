@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { IoClose } from "react-icons/io5";
 import { cargarPedido } from "../../api/pedidos";
 import {showSwalSuccess, showToast,showToastError} from '../../utils/notificaciones';
+import {formatearEnPesos} from "../../utils/moneda";
 
 const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total,cambiarEstadoPedido}) => {
   let items = "";
@@ -42,7 +43,7 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total,cambiarEst
           <div className="flex flex-col">
             <span className="font-bold">{p.nombre}</span>
             <span>
-              ${p.precio} x {p.cantidad}
+              {formatearEnPesos(p.precio)} x {p.cantidad}
             </span>
           </div>
           <div className="text-3xl text-red-800 ">
@@ -84,7 +85,7 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total,cambiarEst
               <div className="mb-4  ">
                 {items}
               </div>
-              <span className="text-teal-800 font-bold text-2xl pt-4">Total ${total}</span>
+              <span className="text-teal-800 font-bold text-2xl pt-4">Total {formatearEnPesos(total)}</span>
             </div>
             <div className="bg-teal-800 w-full py-4 text-white fixed bottom-0">
               <div className="text-center text-xl font-bold">

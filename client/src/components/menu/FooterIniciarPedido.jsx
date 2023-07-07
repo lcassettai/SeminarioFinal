@@ -27,8 +27,8 @@ const FooterIniciarPedido = (props) => {
   
     return (
       <>
-        <div className="fixed bottom-0 bg-teal-800 w-full px-4 py-2 text-white text-center">
-          <div className="text-lg font-bold" onClick={iniciarPedido} >Nuevo Pedido</div>
+        <div className="fixed bottom-0 bg-teal-800 w-full px-4 py-3 text-white text-center">
+          <div className="text-2xl font-bold" onClick={iniciarPedido} >Nuevo Pedido</div>
         </div>
       </>
     );

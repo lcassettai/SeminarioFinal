@@ -4,6 +4,7 @@ import NavMenu from "../../layout/NavMenu";
 import Step from "../../components/steper/Step";
 import { useParams, Link } from "react-router-dom";
 import { getPedidoDetalle, getPedido} from "../../api/pedidos";
+import {formatearEnPesos} from "../../utils/moneda";
 
 const PedidoDetalle = () => {
   const { idPedido } = useParams();
@@ -49,13 +50,13 @@ const PedidoDetalle = () => {
                   className="shadow-md border border-gray-100 w-full mt-4 flex flex-row rounded-xl p-4 justify-between"
                 >
                   <div className="font-bold">{d.descripcion}</div>
-                  <div>{`$${d.costo} x ${d.cantidad}`}</div>
+                  <div>{`${formatearEnPesos(d.costo)} x ${d.cantidad}`}</div>
                 </div>
               );
             })
           : "Cargando"}
         <div className="font-bold pt-6 text-teal-700 px-3 text-xl flex flex-row-reverse">
-          <span>Total : ${total}</span>
+          <span>Total : ${formatearEnPesos(total)}</span>
         </div>
       </div>
     </>

@@ -2,7 +2,7 @@ import Estrellas from "../../components/Estrellas";
 import Consumidores from "../Consumidores";
 import { useState } from "react";
 import ModalProducto from "./ModalProducto";
-
+import {formatearEnPesos} from "../../utils/moneda";
 
 const Producto = (props) => {
   const [estadoModal, setEstadoModal] = useState(false);
@@ -25,7 +25,7 @@ const Producto = (props) => {
               <Consumidores cantidad={props.consumidores} />
             </div>
             <div className="flex flex-row justify-between w-full">
-              <div className="font-bold text-teal-700">${props.precio}</div>
+              <div className="font-bold text-teal-700">{formatearEnPesos(props.precio)}</div>
               <div>
                 <Estrellas cantidad={props.estrellas} />
               </div>
