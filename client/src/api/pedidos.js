@@ -1,7 +1,7 @@
 import {handleResponse}  from './middleWare';
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/pedidos`;
 
-export const iniciarPedidoNuevo = async (codigoVerificacion) => {
+export const iniciarPedidoNuevo = async (codigoHabilitacion) => {
   const token = window.localStorage.getItem("token");
   const mesa = window.localStorage.getItem("mesa");
 
@@ -9,7 +9,7 @@ export const iniciarPedidoNuevo = async (codigoVerificacion) => {
     return null;
   }
 
-  const response = await fetch(`${baseUrl}/nuevo/${mesa}/${codigoVerificacion}`, {
+  const response = await fetch(`${baseUrl}/nuevo/${mesa}/${codigoHabilitacion}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -60,3 +60,61 @@ export const cargarPedido = async (pedidoDetalle) => {
 
   return await handleResponse(response);
 };
+
+export const getPedidosCliente = async () => {
+  const token = window.localStorage.getItem("token");
+
+  const response = await fetch(`${baseUrl}/cliente`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  return await handleResponse(response);
+}
+
+export const getPedidosMesaCliente = async (idCodigoHabilitacion) => {
+  const token = window.localStorage.getItem("token");
+
+  const response = await fetch(`${baseUrl}/cliente/${idCodigoHabilitacion}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  return await handleResponse(response);
+}
+
+
+export const getPedidoDetalle = async (idPedido) => {
+  const token = window.localStorage.getItem("token");
+
+  const response = await fetch(`${baseUrl}/detalle/${idPedido}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  return await handleResponse(response);
+}
+
+
+export const getPedido = async (idPedido) => {
+  const token = window.localStorage.getItem("token");
+
+  const response = await fetch(`${baseUrl}/${idPedido}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  return await handleResponse(response);
+}

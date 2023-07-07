@@ -4,11 +4,11 @@ import { showToast,showToastError,requestTableCode } from '../../utils/notificac
 const FooterIniciarPedido = (props) => {
 
     const iniciarPedido = async () => {
-        const codigoVerificacion = await requestTableCode();
+        const codigoHabilitacion = await requestTableCode();
           
-          if (codigoVerificacion) {
+          if (codigoHabilitacion) {
             try {
-              const data = await iniciarPedidoNuevo(codigoVerificacion);
+              const data = await iniciarPedidoNuevo(codigoHabilitacion);
 
               if(data){
                   localStorage.setItem("pedido",JSON.stringify(data));

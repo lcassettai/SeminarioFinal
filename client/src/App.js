@@ -11,6 +11,9 @@ import EscanearQR from "./views/escanearQR/EscanearQR";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Protected from "./components/protected";
+import MisPedidos from "./views/misPedidos/MisPedidos";
+import PedidoDetalle from "./views/misPedidos/PedidoDetalle";
+import ListadoPedidos from "./views/misPedidos/ListadoPedidos";
 
 function App() {
 
@@ -50,6 +53,30 @@ function App() {
             element={
               <Protected>
                 <Codigo />
+              </Protected>
+            }
+          />
+          <Route
+            path="/pedidos"
+            element={
+              <Protected>
+                <MisPedidos />
+              </Protected>
+            }
+          />
+           <Route
+            path="/pedidos/:idCodigoHabilitacion"
+            element={
+              <Protected>
+                <ListadoPedidos />
+              </Protected>
+            }
+          />
+          <Route
+            path="/pedidos/:idCodigoHabilitacion/:idPedido"
+            element={
+              <Protected>
+                <PedidoDetalle />
               </Protected>
             }
           />

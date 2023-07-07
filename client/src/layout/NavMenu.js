@@ -18,7 +18,7 @@ function NavMenu(props) {
 
     return (
         <div>
-            <nav className="shadow-lg fixed w-full bg-white">
+            <nav className="shadow-lg fixed w-full bg-white z-50	">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
@@ -39,7 +39,7 @@ function NavMenu(props) {
                                         Inicio
                                     </Link>
                                     <Link
-                                        to="/restaurantes"
+                                        to="/pedidos"
                                         className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
                                         Mis Pedidos
@@ -124,7 +124,7 @@ function NavMenu(props) {
                                         Inicio
                                     </Link>
                                     <Link
-                                        to="/"
+                                        to="/pedidos"
                                         className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                                     >
                                         Mis Pedidos

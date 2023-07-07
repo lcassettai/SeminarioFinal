@@ -8,7 +8,6 @@ const getMesas = async (codigo_identificacion) => {
                 UBICACION,
                 NUMERO,
                 CODIGO_IDENTIFICACION,
-                CODIGO_INGRESO,
                 ID_SUCURSAL
             FROM MESAS
             WHERE CODIGO_IDENTIFICACION = $1
@@ -18,13 +17,16 @@ const getMesas = async (codigo_identificacion) => {
   return resultado.rows;
 };
 
-const validarCodigoIngreso = async (codigo_identificacion,codigo_ingreso) => {
+const validarCodigoIngreso = async (codigo_identificacion,codigo_habilitacion) => {
     const resultado = await db.query(
-        `SELECT ID_MESA
-            FROM MESAS
-            WHERE codigo_ingreso ilike $1 AND CODIGO_IDENTIFICACION ilike $2
-        AND ACTIVA = TRUE
-    `, [`${codigo_ingreso}`,`${codigo_identificacion}`]
+        `SELECT *
+        FROM CODIGO_MESA_HABILITACION CMH
+        INNER JOIN MESAS M ON CMH.ID_MESA = M.ID_MESA
+        WHERE CMH.CODIGO ilike $1
+            AND CMH.ACTIVO = TRUE
+            AND M.ACTIVA = TRUE
+            AND M.CODIGO_IDENTIFICACION ilike $2
+    `, [`${codigo_habilitacion}`,`${codigo_identificacion}`]
 );
 
 return resultado.rows;
