@@ -39,7 +39,6 @@ const Restaurantes = () => {
   };
 
   const mostrarRestaurantes = () => {
-    console.log("entre al listado");
     if (!listadoRestaurantes || listadoRestaurantes == null) {
       return <ColorRing
           visible={true}

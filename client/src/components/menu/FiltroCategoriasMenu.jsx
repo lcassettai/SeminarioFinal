@@ -23,7 +23,7 @@ const FiltroCategoriasMenu = ({setOnCategoriaSeleccionada}) => {
         
         setCategorias(data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     

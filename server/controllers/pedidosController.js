@@ -55,7 +55,7 @@ const cargarPedido = async (req,res) => {
     pedidosModel.updateEstadoPedido(id_pedido,2);
     res.json({status: "Pedido generado correctamente"});
   }catch(error){
-    console.log(error);
+    console.error(error);
     res.status(500).json({error: "Error al cargar el pedido"});
   }
 } 
@@ -74,7 +74,7 @@ const getPedidoMesaEstadoNuevo = async (req,res) => {
 
     res.json(pedido[0]); 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({error: "Error al obtener el pedido"});
   }
 }
@@ -86,7 +86,7 @@ const getPedidosCliente = async (req,res) => {
   
     res.json(pedidos);    
   }catch(error){
-    console.log(error);
+    console.error(error);
     res.status(500).json({error: "Error al obtener los pedidos"});
   }
 }

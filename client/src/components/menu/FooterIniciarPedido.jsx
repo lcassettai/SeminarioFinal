@@ -20,7 +20,7 @@ const FooterIniciarPedido = (props) => {
                   showToastError('El codigo ingresado es incorrecto!');
               }         
             } catch (error) {
-              console.log(error);
+              console.error(error);
             }          
           }
     }

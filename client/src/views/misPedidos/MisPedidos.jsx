@@ -12,7 +12,7 @@ const MisPedidos = () => {
         const data = await getPedidosCliente();
         setPedidosCliente(data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 

@@ -31,7 +31,7 @@ const ModalDetalle = ({setProductos,estado,cambiarEstado,pedido,total,cambiarEst
     localStorage.removeItem('pedido');
    } catch (error) {
     showToastError("Algo salio mal");
-    console.log(error);
+    console.error(error);
    }
   }
 

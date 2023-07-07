@@ -13,9 +13,8 @@ const MisPedidos = () => {
       try {
         const data = await getPedidosMesaCliente(idCodigoHabilitacion);
         setPedidosMesaCliente(data);
-        console.log(data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
