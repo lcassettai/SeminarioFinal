@@ -138,7 +138,7 @@ const getPedidosMesaCliente = async (idCliente,idCodigoHabilitacion) => {
     P.ID_PEDIDO,
     EP.id_estado_pedido,
     EP.estado
-  ORDER BY FECHA_GENERACION DESC
+  ORDER BY P.ID_PEDIDO DESC
 
 `,[idCliente,idCodigoHabilitacion]);
 

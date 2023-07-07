@@ -3,11 +3,10 @@ const mesasModel = require("../models/mesasModel");
 const utils = require("../utils");
 
 const nuevoPedido = async (req, res) => {
-  const { codigo_identificacion, codigo_habilitacion } = req.params;
+  const {codigo_habilitacion } = req.params;
 
   try {
     const mesaValidada = await mesasModel.validarCodigoIngreso(
-      codigo_identificacion,
       codigo_habilitacion
     );
 

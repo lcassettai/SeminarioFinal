@@ -27,7 +27,7 @@ router.get("/pedidos/:id_pedido",middleware.verifyToken,pedidosController.getPed
 router.get("/pedidos/detalle/:id_pedido",middleware.verifyToken,pedidosController.getPedidoDetalle);
 router.get("/pedidos/nuevo/:id_mesa",middleware.verifyToken,pedidosController.getPedidoMesaEstadoNuevo);
 router.post("/pedidos/:id_pedido",middleware.verifyToken,pedidosController.cargarPedido);
-router.post("/pedidos/nuevo/:codigo_identificacion/:codigo_habilitacion",middleware.verifyToken,pedidosController.nuevoPedido);
+router.post("/pedidos/nuevo/:codigo_habilitacion",middleware.verifyToken,pedidosController.nuevoPedido);
 
 router.get("/categorias",middleware.verifyToken,categoriasController.getAllCategorias);
 

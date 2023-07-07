@@ -3,13 +3,8 @@ const baseUrl = `${process.env.REACT_APP_API_URL}/api/pedidos`;
 
 export const iniciarPedidoNuevo = async (codigoHabilitacion) => {
   const token = window.localStorage.getItem("token");
-  const mesa = window.localStorage.getItem("mesa");
 
-  if (mesa == null || mesa == undefined || mesa == "") {
-    return null;
-  }
-
-  const response = await fetch(`${baseUrl}/nuevo/${mesa}/${codigoHabilitacion}`, {
+  const response = await fetch(`${baseUrl}/nuevo/${codigoHabilitacion}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,12 +31,7 @@ export const getPedidoEstadoNuevo = async (idMesa) => {
 
 export const cargarPedido = async (pedidoDetalle) => {
   const token = window.localStorage.getItem("token");
-  const mesa = window.localStorage.getItem("mesa");
   const pedido = window.localStorage.getItem("pedido");
-
-  if (mesa == null || mesa == undefined || mesa == "") {
-    return null;
-  }
 
   if (pedido == null || pedido == undefined || pedido == "") {
     return null;

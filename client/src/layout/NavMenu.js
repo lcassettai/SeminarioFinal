@@ -11,7 +11,6 @@ function NavMenu(props) {
 
     const handleLogOut = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem('mesa');
         localStorage.removeItem('pedido');
         navigate("/login");
     }

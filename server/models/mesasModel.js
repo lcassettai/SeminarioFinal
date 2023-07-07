@@ -17,7 +17,7 @@ const getMesas = async (codigo_identificacion) => {
   return resultado.rows;
 };
 
-const validarCodigoIngreso = async (codigo_identificacion,codigo_habilitacion) => {
+const validarCodigoIngreso = async (codigo_habilitacion) => {
     const resultado = await db.query(
         `SELECT *
         FROM CODIGO_MESA_HABILITACION CMH
@@ -25,8 +25,7 @@ const validarCodigoIngreso = async (codigo_identificacion,codigo_habilitacion) =
         WHERE CMH.CODIGO ilike $1
             AND CMH.ACTIVO = TRUE
             AND M.ACTIVA = TRUE
-            AND M.CODIGO_IDENTIFICACION ilike $2
-    `, [`${codigo_habilitacion}`,`${codigo_identificacion}`]
+    `, [`${codigo_habilitacion}`]
 );
 
 return resultado.rows;

@@ -53,7 +53,6 @@ export default function Login() {
                 localStorage.removeItem('token');
             }else{
                 localStorage.setItem('token',result.token);
-                localStorage.removeItem('mesa');
                 localStorage.removeItem('pedido');
                 navigate("/menuHome");
             }         
