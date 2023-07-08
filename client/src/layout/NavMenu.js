@@ -47,7 +47,7 @@ function NavMenu(props) {
                                         to="/restaurantes"
                                         className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
-                                        Solicitar la cuenta
+                                        Restaurantes
                                     </Link>
                                     <button
                                         onClick={handleLogOut}
@@ -135,10 +135,10 @@ function NavMenu(props) {
                                         Llamar al mozo
                                     </Link>
                                     <Link
-                                        to="/"
+                                        to="/restaurantes"
                                         className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                                     >
-                                        Solicitar la cuenta
+                                        Restaurantes
                                     </Link>
                                     <button
                                         onClick={handleLogOut}
