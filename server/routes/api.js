@@ -7,6 +7,7 @@ const productosController = require("../controllers/productosController");
 const mesasController = require("../controllers/mesasController");
 const categoriasController = require("../controllers/categoriasController");
 const pedidosController = require("../controllers/pedidosController");
+const gastosController = require("../controllers/gastosController");
 
 const router = Router();
 
@@ -30,6 +31,8 @@ router.post("/pedidos/:id_pedido",middleware.verifyToken,pedidosController.carga
 router.post("/pedidos/nuevo/:codigo_habilitacion",middleware.verifyToken,pedidosController.nuevoPedido);
 
 router.get("/categorias",middleware.verifyToken,categoriasController.getAllCategorias);
+
+router.get("/gastos/:id_sucursal",middleware.verifyToken,gastosController.getGastosSucursal);
 
 
 module.exports = router;

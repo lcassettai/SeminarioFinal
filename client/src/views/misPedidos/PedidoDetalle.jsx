@@ -5,6 +5,7 @@ import Step from "../../components/steper/Step";
 import { useParams, Link } from "react-router-dom";
 import { getPedidoDetalle, getPedido} from "../../api/pedidos";
 import {formatearEnPesos} from "../../utils/moneda";
+import BtnFooterVolver from "../../components/BtnFooterVolver";
 
 const PedidoDetalle = () => {
   const { idPedido } = useParams();
@@ -30,7 +31,7 @@ const PedidoDetalle = () => {
 
   return (
     <>
-      <NavMenu text="Home" />
+      <NavMenu text="Mis Pedidos" />
 
       <div className="contenedor">
         <div className="font-bold py-2 px-2 text-2xl text-center  text-teal-700 uppercase ">
@@ -47,7 +48,7 @@ const PedidoDetalle = () => {
               return (
                 <div
                   key={index}
-                  className="shadow-md border border-gray-100 w-full mt-4 flex flex-row rounded-xl p-4 justify-between"
+                  className="border-b border-dashed border-gray-200 w-full mt-4 flex flex-row p-4 justify-between"
                 >
                   <div className="font-bold">{d.descripcion}</div>
                   <div>{`${formatearEnPesos(d.costo)} x ${d.cantidad}`}</div>
@@ -56,9 +57,10 @@ const PedidoDetalle = () => {
             })
           : "Cargando"}
         <div className="font-bold pt-6 text-teal-700 px-3 text-xl flex flex-row-reverse">
-          <span>Total : ${formatearEnPesos(total)}</span>
+          <span>Total : {formatearEnPesos(total)}</span>
         </div>
       </div>
+        <BtnFooterVolver/>
     </>
   );
 };

@@ -83,7 +83,13 @@ const Restaurantes = () => {
         <div className="mt-4 grid grid-cols-2 gap-4">
           {mostrarRestaurantes()}
         </div>
+        <div className="pt-4">
+        <Link to="/">
+          <button className="button-lg-cancelar mt-2">Volver</button>
+        </Link>
+        </div>
       </div>
+
     </>
   );
 };

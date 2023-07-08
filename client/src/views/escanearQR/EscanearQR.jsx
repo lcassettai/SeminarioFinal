@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getMesaByCodigo } from "../../api/mesas";
 import {showSwalWarning} from "../../utils/notificaciones";
 import { getPedidoEstadoNuevo } from "../../api/pedidos";
+import BtnFooterVolver from "../../components/BtnFooterVolver";
 
 const EscanearQR = () => {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ const EscanearQR = () => {
           <QrScanner onScann={scannerHandler} />
         </div>
       </div>
+      <BtnFooterVolver navigateTo={`/menuHome`}/>
     </>
   );
 };
