@@ -5,6 +5,8 @@ import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {formatearEnPesos} from "../../utils/moneda";
+
 
 const ModalProducto = ({
   precio,
@@ -118,7 +120,7 @@ const ModalProducto = ({
               </div>
             </div>
             <div className="flex justify-between w-full p-6">
-              <div className="font-bold text-2xl">${precio}</div>
+              <div className="font-bold text-2xl">{formatearEnPesos(precio)}</div>
               <div>
                 <button className="button-producto mr-4" onClick={restar}>
                   -

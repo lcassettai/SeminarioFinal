@@ -1,3 +1,5 @@
+import {formatearEnPesos} from "../../utils/moneda";
+
 const FooterResumen = (props) => {
 
   const estadoModalHandler = () => {
@@ -16,7 +18,7 @@ const FooterResumen = (props) => {
         <div className="flex items-center text-lg font-bold" onClick={estadoModalHandler} >Ver pedido</div>
         <div className="text-center text-sm">
           <span className="font-bold">Total</span>
-          <br></br> ${props.total}
+          <br></br> {formatearEnPesos(props.total)}
         </div>
       </div>
     </>

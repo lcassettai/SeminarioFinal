@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import NavMenu from "../../layout/NavMenu";
 import { getPedidosCliente } from "../../api/pedidos";
 import PedidoAgrupado from "./PedidoAgrupado";
+import BtnFooterVolver from "../../components/BtnFooterVolver";
+
 
 const MisPedidos = () => {
   const [pedidosCliente, setPedidosCliente] = useState([]);
@@ -21,14 +23,17 @@ const MisPedidos = () => {
 
   return (
     <>
-      <NavMenu text="Home" />
+      <NavMenu text="Mis Pedidos" />
       <div className="contenedor">
+      <div className="font-bold pt-2 px-2 text-xl">Historial de Visitas</div>
         {pedidosCliente
           ? pedidosCliente.map((pedido) => {
               return <PedidoAgrupado key={pedido.id_codigo_habilitacion} pedido={pedido} />;
             })
           : "Cargando"}
       </div>
+      <BtnFooterVolver navigateTo={`/menuHome`}/>
+
     </>
   );
 };

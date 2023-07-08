@@ -121,7 +121,8 @@ const getPedidosMesaCliente = async (idCliente,idCodigoHabilitacion) => {
     P.NRO_PEDIDO,
     P.CREATED_AT,
     EP.id_estado_pedido,
-    EP.estado
+    EP.estado,
+    S.ID_SUCURSAL
   FROM PEDIDOS P
   INNER JOIN PEDIDOS_INDIVIDUALES PI ON P.ID_PEDIDO = PI.ID_PEDIDO
   INNER JOIN ESTADOS_PEDIDO EP ON EP.ID_ESTADO_PEDIDO = P.ID_ESTADO
@@ -137,7 +138,8 @@ const getPedidosMesaCliente = async (idCliente,idCodigoHabilitacion) => {
     P.CREATED_AT,
     P.ID_PEDIDO,
     EP.id_estado_pedido,
-    EP.estado
+    EP.estado,
+    S.ID_SUCURSAL
   ORDER BY P.ID_PEDIDO DESC
 
 `,[idCliente,idCodigoHabilitacion]);
