@@ -39,7 +39,7 @@ export const showSwalWarning = (titulo,texto) => {
     MySwal.fire(mensaje);
 }
 
-export const showSwalSuccess = (titulo,texto) => {
+export const showSwalSuccess = (titulo,texto,redireccionar) => {
     const mensaje = {
         title: <strong>{titulo}</strong>,
         html: <p>{texto}</p>,
@@ -48,7 +48,16 @@ export const showSwalSuccess = (titulo,texto) => {
         icon: "success",
     };
 
-    MySwal.fire(mensaje);
+    if(redireccionar){
+        MySwal.fire(mensaje)
+    .then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = redireccionar;
+        }
+      });
+    }else{
+        MySwal.fire(mensaje);  
+    }    
 }
 
 
@@ -66,7 +75,7 @@ export const showSwalError = (titulo,texto) => {
 
 export const requestTableCode = async() => {
     const { value: codigoVerificacion } = await Swal.fire({
-        html: '<b>Ingrese el codigo de 6 digitos provisto por el mozo para iniciar un nuevo pedido</b>',
+        html: '<b>Ingrese el codigo de 6 digitos provisto por el mozo</b>',
         input: 'text',
         inputPlaceholder:'Codigo de verificacion',
         confirmButtonColor: "#009688",
@@ -84,3 +93,4 @@ export const requestTableCode = async() => {
 
       return codigoVerificacion;
 }
+

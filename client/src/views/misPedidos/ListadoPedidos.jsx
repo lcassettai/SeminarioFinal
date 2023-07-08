@@ -4,17 +4,26 @@ import { useEffect, useState } from "react";
 import { getPedidosMesaCliente } from "../../api/pedidos";
 import { getGastosSucursal } from "../../api/gastos";
 import { getMediosPagoSucursal } from "../../api/mediosPago";
+import { cargarNotificacion } from "../../api/notificaciones";
 import Pedido from "./Pedido";
 import Gastos from "./Gastos";
 import BtnSolicitarCuenta from "./BtnSolicitarCuenta";
 import BtnFooterVolver from "../../components/BtnFooterVolver";
 import { formatearEnPesos } from "../../utils/moneda";
+import {
+  showSwalWarning,
+  requestTableCode,
+  showSwalSuccess,
+  showToastError,
+} from "../../utils/notificaciones";
 
 const MisPedidos = () => {
   const { idCodigoHabilitacion } = useParams();
   const [pedidosMesaCliente, setPedidosMesaCliente] = useState([]);
   const [gastosAdicionales, setgastosAdicionales] = useState([]);
   const [mediosPago, setMediosPago] = useState([]);
+  const [medioPagoSeleccionado, setMedioPagoSeleccionado] = useState(0);
+  const [montoEntregar, setMontoEntregar] = useState("");
   const [total, setTotal] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
 
@@ -57,7 +66,59 @@ const MisPedidos = () => {
   };
 
   const handleMedioPago = (e) => {
-    console.log(e.target.value);
+    const idMedioPago = e.target.value;
+
+    setMedioPagoSeleccionado(idMedioPago);
+
+    if (idMedioPago != 1) {
+      setMontoEntregar("");
+    }
+  };
+
+  const handleMontoEntregar = (e) => {
+    const monto = e.target.value;
+    setMontoEntregar(monto);
+  };
+
+  const handleSolicitarCuenta = async () => {
+    if (!medioPagoSeleccionado) {
+      showSwalWarning("Oops", "Debe seleccionar un medio de pago");
+      return;
+    }
+
+    if (medioPagoSeleccionado == "Efectivo" && !montoEntregar) {
+      showSwalWarning("Oops", "Debe indicar el monto con el que va a pagar");
+      return;
+    }
+
+    const codigoHabilitacion = await requestTableCode();
+
+    let notificacion = "";
+
+    if (medioPagoSeleccionado == "Efectivo" && !montoEntregar) {
+      notificacion = {
+        id_tipo: 1,
+        detalle: `Mediod Pago: ${medioPagoSeleccionado} - Monto: ${montoEntregar}`,
+      };
+    } else {
+      notificacion = {
+        id_tipo: 1,
+        detalle: `Mediod Pago: ${medioPagoSeleccionado}`,
+      };
+    }
+
+    const data = await cargarNotificacion(codigoHabilitacion, notificacion);
+
+    if (!data) {
+      showToastError("El codigo ingresado es incorrecto!");
+      return;
+    }
+
+    showSwalSuccess(
+      "Cuenta solicitada!",
+      "En breve un mozo se acercara para finalizar el pedido",
+      "/"
+    )
   };
 
   return (
@@ -97,12 +158,11 @@ const MisPedidos = () => {
               className="border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-teal-700 focus:border-teal-700 hoever:bg-teal-700 block w-full p-2.5 "
             >
               <option defaultValue value="">
-                {" "}
-                -- Seleccione --{" "}
+                -- Seleccione --
               </option>
               {mediosPago.map((m) => {
                 return (
-                  <option key={m.id_medio_pago} value={m.id_medio_pago}>
+                  <option key={m.id_medio_pago} value={m.medio}>
                     {m.medio}
                   </option>
                 );
@@ -112,15 +172,24 @@ const MisPedidos = () => {
             ""
           )}
         </div>
-        <div className="mt-3 w-full">
-          <label className="form-label inline-block mb-2 text-lg text-gray-700 font-bold">
-            Observaciones
-          </label>
-          <textarea type="text" className="input-text-lg"></textarea>
-        </div>
+        {medioPagoSeleccionado == "Efectivo" ? (
+          <div className="mt-3 w-full">
+            <label className="form-label inline-block mb-2 text-lg text-gray-700 font-bold"></label>
+            <input
+              type="number"
+              className="input-text-lg"
+              placeholder="Con cuanto vas a pagar"
+              onChange={handleMontoEntregar}
+            ></input>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <BtnFooterVolver />
-      <BtnSolicitarCuenta />
+      <div onClick={handleSolicitarCuenta}>
+        <BtnSolicitarCuenta />
+      </div>
     </>
   );
 };
