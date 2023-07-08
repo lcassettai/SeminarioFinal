@@ -8,6 +8,7 @@ const mesasController = require("../controllers/mesasController");
 const categoriasController = require("../controllers/categoriasController");
 const pedidosController = require("../controllers/pedidosController");
 const gastosController = require("../controllers/gastosController");
+const mediosPagoController = require("../controllers/mediosPagoController");
 
 const router = Router();
 
@@ -34,5 +35,6 @@ router.get("/categorias",middleware.verifyToken,categoriasController.getAllCateg
 
 router.get("/gastos/:id_sucursal",middleware.verifyToken,gastosController.getGastosSucursal);
 
+router.get("/medios_pago/:id_sucursal",middleware.verifyToken,mediosPagoController.getMediosPagoSucursal);
 
 module.exports = router;
