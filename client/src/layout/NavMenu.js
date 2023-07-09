@@ -17,7 +17,7 @@ function NavMenu(props) {
 
     return (
         <div>
-            <nav className="shadow-lg fixed w-full bg-white z-50	">
+            <nav className="shadow-md fixed w-full bg-white z-50	">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
@@ -47,7 +47,7 @@ function NavMenu(props) {
                                         to="/restaurantes"
                                         className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
-                                        Solicitar la cuenta
+                                        Restaurantes
                                     </Link>
                                     <button
                                         onClick={handleLogOut}
@@ -129,16 +129,16 @@ function NavMenu(props) {
                                         Mis Pedidos
                                     </Link>
                                     <Link
-                                        to="/"
+                                        to="/atencion"
                                         className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                                     >
-                                        Llamar al mozo
+                                        Solicitar Atención
                                     </Link>
                                     <Link
-                                        to="/"
+                                        to="/restaurantes"
                                         className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                                     >
-                                        Solicitar la cuenta
+                                        Restaurantes
                                     </Link>
                                     <button
                                         onClick={handleLogOut}

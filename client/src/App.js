@@ -14,6 +14,7 @@ import Protected from "./components/protected";
 import MisPedidos from "./views/misPedidos/MisPedidos";
 import PedidoDetalle from "./views/misPedidos/PedidoDetalle";
 import ListadoPedidos from "./views/misPedidos/ListadoPedidos";
+import SolicitarAtencion from "./views/solicitarAtencion/SolicitarAtencion";
 
 function App() {
 
@@ -88,6 +89,14 @@ function App() {
               </Protected>
             }
           />
+          <Route
+            path="/atencion"
+            element={
+              <Protected>
+                <SolicitarAtencion />
+              </Protected>
+            }
+          />          
           <Route
             path="/restaurantes/:idRestaurante"
             element={
