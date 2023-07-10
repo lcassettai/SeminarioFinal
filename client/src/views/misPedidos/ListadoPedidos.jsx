@@ -117,7 +117,7 @@ const MisPedidos = () => {
     showSwalSuccess(
       "Cuenta solicitada!",
       "En breve un mozo se acercara para finalizar el pedido",
-      "/"
+      "/menuHome"
     )
   };
 

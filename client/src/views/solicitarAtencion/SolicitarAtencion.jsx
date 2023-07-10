@@ -29,7 +29,7 @@ const SolicitarAtencion = () => {
     showSwalSuccess(
       "Solicitud enviada!",
       "En breve un mozo se acercara para atenderlo",
-      "/"
+      "/menuHome"
     );
   };
 
