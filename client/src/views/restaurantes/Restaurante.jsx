@@ -5,7 +5,7 @@ import Estrellas from "../../components/Estrellas";
 import { getRestaurante } from "../../api/restaurantes";
 import { useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
-
+import { MdMenuBook, MdOutlineCalendarMonth } from "react-icons/md";
 
 const Restaurante = () => {
   const { idRestaurante } = useParams();
@@ -39,16 +39,26 @@ const Restaurante = () => {
               cantidad={restaurante.valoracion}
             />
             <div className="pt-4 flex flex-row text-xl font-bold ">
-              <span className="text-red-500 "><FaMapMarkerAlt/> </span> {restaurante.direccion}
+              <span className="text-red-500 ">
+                <FaMapMarkerAlt />{" "}
+              </span>{" "}
+              {restaurante.direccion}
             </div>
-            <div className="text-justify pt-4">
-              {restaurante.descripcion}
+            <div className="text-justify pt-4">{restaurante.descripcion}</div>
+            <div className="flex justify-around mt-8">
+              <Link to={`/reservas/${restaurante.id_sucursal}`}>
+                <button className="bg-teal-700 button-lg">
+                  Reservas &nbsp;
+                  <MdOutlineCalendarMonth className="inline-block text-xl" />
+                </button>
+              </Link>
+              <Link to={`/restaurantes/${restaurante.id_sucursal}/menu`}>
+                <button className="bg-teal-700 button-lg">
+                  Ver Menu &nbsp;
+                  <MdMenuBook className="inline-block text-xl" />
+                </button>
+              </Link>
             </div>
-            <br></br>
-
-            <Link to="/restaurantes">
-              <button className="button-lg-cancelar">Volver</button>
-            </Link>
           </div>
         </div>
       ) : (
