@@ -19,7 +19,7 @@ const Restaurante = () => {
       try {
         const data = await getRestaurante(id);
         const horarios = await getHorariosSucursal(id);
-          console.log(horarios);
+        console.log(horarios);
         setHorarios(horarios);
         setRestaurante(data);
       } catch (error) {
@@ -43,27 +43,14 @@ const Restaurante = () => {
               className="justify-center"
               cantidad={restaurante.valoracion}
             />
-            <div className="pt-4 flex flex-row text-xl font-bold ">
-              <span className="text-red-500 ">
-                <FaMapMarkerAlt />{" "}
-              </span>{" "}
+                      <div className="text-center text-xl font-bold pt-4">
+              <span className="text-red-500 inline-block">
+                <FaMapMarkerAlt />
+              </span>
               {restaurante.direccion}
             </div>
-            <div className="text-justify pt-4">{restaurante.descripcion}</div>
-            <div className="pt-4">
-              <span className="font-bold">Horarios </span>
-              <ul className="text-sm">
-              {horarios ? horarios.map((h,index) => {
-                return (
-                  <li key={index}>
-                   <strong>{h.dia }</strong>{` : ${h.hora_inicio} - ${h.hora_fin}`}
-                  </li>
-                )
-              }): ""}
-              </ul>
-            </div>
-            <div className="flex justify-around mt-8">
-              <Link to={`/reservas/${restaurante.id_sucursal}`}>
+            <div className="flex justify-around pt-4 mb-4">
+              <Link to={`/restaurantes/${restaurante.id_sucursal}/reservas`}>
                 <button className="bg-teal-700 button-lg">
                   Reservas &nbsp;
                   <MdOutlineCalendarMonth className="inline-block text-xl" />
@@ -75,6 +62,28 @@ const Restaurante = () => {
                   <MdMenuBook className="inline-block text-xl" />
                 </button>
               </Link>
+            </div>
+            <div className="text-justify pt-4">
+              {restaurante.descripcion}
+            </div>
+            <div className="pt-4 pb-4">
+              <span className="font-bold text-xl">
+                {" "}
+                <MdOutlineCalendarMonth className="inline-block text-xl text-red-500 mb-1" />{" "}
+                Dias y Horarios de atención{" "}
+              </span>
+              <ul className="text-sm">
+                {horarios
+                  ? horarios.map((h, index) => {
+                      return (
+                        <li key={index}>
+                          <strong>{h.dia}</strong>
+                          {` : ${h.hora_inicio} - ${h.hora_fin}`}
+                        </li>
+                      );
+                    })
+                  : ""}
+              </ul>
             </div>
           </div>
         </div>

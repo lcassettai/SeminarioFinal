@@ -2,8 +2,9 @@ import { useParams, Link } from "react-router-dom";
 import NavMenu from "../../layout/NavMenu";
 import Titulo from "../../components/Titulo";
 import { getRestaurante } from "../../api/restaurantes";
+import { nuevaReserva } from "../../api/reservas";
 import { useEffect, useState, useRef } from "react";
-import { requestConfirmation,showSwalWarning } from "../../utils/notificaciones"
+import { requestConfirmation,showSwalWarning,showSwalSuccess } from "../../utils/notificaciones"
 
 const NuevaReserva = () => {
   const { idRestaurante } = useParams();
@@ -43,10 +44,25 @@ const NuevaReserva = () => {
     <strong>Hora :</strong> ${hora.current.value}<br>  
     <strong>Personas :</strong> ${personas.current.value}<br>  
     <br> Deseas continuar?<div>`);
-    if(result){
-        console.log("Reservado");
-    }else{
-        console.log("Cancelado");
+
+    if(!result){
+        return;
+    }
+    const datosReserva = {
+      fecha : fecha.current.value,
+      hora : hora.current.value,
+      detalle : detalle.current.value,
+      personas:  personas.current.value
+    };
+
+    try {
+      const data = await nuevaReserva(restaurante.id_sucursal,datosReserva);
+
+      if(data){
+        showSwalSuccess('Reserva solicitada','',`/reservas/${data}`);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -98,7 +114,7 @@ const NuevaReserva = () => {
             <label className="form-label inline-block mb-2 text-lg text-gray-700 font-bold">
               Detalles
             </label>
-            <textarea  placeholder="Algo que quieras aclarar?"  className="input-text-lg" required ref={detalle}></textarea>
+            <textarea  placeholder="Algo que quieras aclarar?"  className="input-text-lg"  ref={detalle}></textarea>
           </div>
           <div className="flex justify-around mt-8">
             <Link
