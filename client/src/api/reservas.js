@@ -34,7 +34,7 @@ export const getReserva = async (idReserva) => {
 export const getReservasCliente = async () => {    
     const token = localStorage.getItem('token');
     
-    const response = await fetch(`${baseUrl}}`, {
+    const response = await fetch(`${baseUrl}`, {
         method: "GET", 
         headers:{
             'Content-Type': 'application/json',

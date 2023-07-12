@@ -16,6 +16,7 @@ import PedidoDetalle from "./views/misPedidos/PedidoDetalle";
 import ListadoPedidos from "./views/misPedidos/ListadoPedidos";
 import SolicitarAtencion from "./views/solicitarAtencion/SolicitarAtencion";
 import NuevaReserva from "./views/restaurantes/NuevaReserva";
+import Reservas from "./views/reservas/Reservas";
 
 function App() {
 
@@ -111,6 +112,14 @@ function App() {
             element={
               <Protected>
                 <NuevaReserva />
+              </Protected>
+            }
+          />
+          <Route
+            path="/reservas"
+            element={
+              <Protected>
+                <Reservas />
               </Protected>
             }
           />

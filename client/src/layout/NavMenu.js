@@ -44,6 +44,12 @@ function NavMenu(props) {
                                         Mis Pedidos
                                     </Link>
                                     <Link
+                                        to="/reservas"
+                                        className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                    >
+                                        Reservas
+                                    </Link>
+                                    <Link
                                         to="/restaurantes"
                                         className="text-black hover:bg-teal-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
@@ -127,6 +133,12 @@ function NavMenu(props) {
                                         className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                                     >
                                         Mis Pedidos
+                                    </Link>
+                                    <Link
+                                        to="/reservas"
+                                        className="text-black hover:bg-teal-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                                    >
+                                        Mis Reservas
                                     </Link>
                                     <Link
                                         to="/atencion"
