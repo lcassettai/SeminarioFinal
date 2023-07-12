@@ -10,6 +10,7 @@ const pedidosController = require("../controllers/pedidosController");
 const gastosController = require("../controllers/gastosController");
 const mediosPagoController = require("../controllers/mediosPagoController");
 const notificacionesController = require("../controllers/notificacionesController");
+const horariosController = require("../controllers/horariosController");
 
 const router = Router();
 
@@ -42,5 +43,10 @@ router.get("/medios_pago/:id_sucursal",middleware.verifyToken,mediosPagoControll
 //   NOTIFICACIONES
 //=======================
 router.post("/notificaciones/:codigo_habilitacion",middleware.verifyToken,notificacionesController.cargarNuevaNotificacion);
+
+//======================
+//   HORARIOS
+//=======================
+router.get("/horarios/:id_sucursal",middleware.verifyToken,horariosController.getHorariosSucursal);
 
 module.exports = router;
