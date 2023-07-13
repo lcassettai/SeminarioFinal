@@ -4,7 +4,13 @@ import { showToast,showToastError,requestTableCode } from '../../utils/notificac
 const FooterIniciarPedido = (props) => {
 
     const iniciarPedido = async () => {
-        const codigoHabilitacion = await requestTableCode();
+        let codigoHabilitacion = "";
+        
+        if(localStorage.getItem("codigo_habilitacion")){
+          codigoHabilitacion = localStorage.getItem("codigo_habilitacion");
+        }else{
+          codigoHabilitacion  = await requestTableCode();
+        }
           
           if (codigoHabilitacion) {
             try {
@@ -12,6 +18,7 @@ const FooterIniciarPedido = (props) => {
 
               if(data){
                   localStorage.setItem("pedido",JSON.stringify(data));
+                  localStorage.setItem("codigo_habilitacion",codigoHabilitacion);
                   props.setNuevoPedido(true);
                   showToast('Se inicio un nuevo pedido con exito!');
               }else{
