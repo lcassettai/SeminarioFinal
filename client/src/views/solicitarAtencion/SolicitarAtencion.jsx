@@ -12,7 +12,13 @@ const SolicitarAtencion = () => {
   const mensaje = useRef("");
 
   const handleSolicitud = async () => {
-    const codigoHabilitacion = await requestTableCode();
+    let codigoHabilitacion = "";
+        
+    if(localStorage.getItem("codigo_habilitacion")){
+      codigoHabilitacion = localStorage.getItem("codigo_habilitacion");
+    }else{
+      codigoHabilitacion  = await requestTableCode();
+    }
 
     const notificacion = {
       id_tipo: 2,
@@ -26,6 +32,8 @@ const SolicitarAtencion = () => {
       return;
     }
 
+    localStorage.setItem("codigo_habilitacion",codigoHabilitacion);
+    
     showSwalSuccess(
       "Solicitud enviada!",
       "En breve un mozo se acercara para atenderlo",

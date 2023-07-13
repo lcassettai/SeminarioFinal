@@ -90,6 +90,7 @@ const Menu = () => {
 
   const handleEstadoPedido = (estado) =>{
     setNuevoPedido(estado);
+    setProductos([]);
   }
 
   useEffect(() => {
