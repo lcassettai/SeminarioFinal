@@ -5,7 +5,6 @@ import Step from "../../components/steper/Step";
 import { useParams, Link } from "react-router-dom";
 import { getPedidoDetalle, getPedido} from "../../api/pedidos";
 import {formatearEnPesos} from "../../utils/moneda";
-import BtnFooterVolver from "../../components/BtnFooterVolver";
 
 const PedidoDetalle = () => {
   const { idPedido } = useParams();
@@ -60,7 +59,6 @@ const PedidoDetalle = () => {
           <span>Total : {formatearEnPesos(total)}</span>
         </div>
       </div>
-        <BtnFooterVolver/>
     </>
   );
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NavMenu from "../../layout/NavMenu";
 import { getPedidosCliente } from "../../api/pedidos";
 import PedidoAgrupado from "./PedidoAgrupado";
-import BtnFooterVolver from "../../components/BtnFooterVolver";
+
 
 
 const MisPedidos = () => {
@@ -32,7 +32,6 @@ const MisPedidos = () => {
             })
           : "Cargando"}
       </div>
-      <BtnFooterVolver navigateTo={`/menuHome`}/>
 
     </>
   );

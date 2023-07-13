@@ -8,7 +8,6 @@ import { cargarNotificacion } from "../../api/notificaciones";
 import Pedido from "./Pedido";
 import Gastos from "./Gastos";
 import BtnSolicitarCuenta from "./BtnSolicitarCuenta";
-import BtnFooterVolver from "../../components/BtnFooterVolver";
 import { formatearEnPesos } from "../../utils/moneda";
 import {
   showSwalWarning,
@@ -186,7 +185,6 @@ const MisPedidos = () => {
           ""
         )}
       </div>
-      <BtnFooterVolver />
       <div onClick={handleSolicitarCuenta}>
         <BtnSolicitarCuenta />
       </div>
