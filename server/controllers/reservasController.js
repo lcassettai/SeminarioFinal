@@ -40,8 +40,23 @@ const nuevaReserva = async (req,res) => {
     }
 }
 
+const cancelarReserva = async (req,res) => {
+    const cliente = req.usuario.id_cliente;
+    const {id_reserva} = req.params;
+
+    try {
+        const reserva = await reservasModel.actualizarEstado(id_reserva,cliente,3);
+        
+        res.json(reserva);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: 'No se pudo cancelar la reserva'});
+    }
+}
+
 module.exports = {
     getReserva,
     getReservas,
-    nuevaReserva
+    nuevaReserva,
+    cancelarReserva
 }

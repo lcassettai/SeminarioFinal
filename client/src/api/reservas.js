@@ -19,7 +19,7 @@ export const nuevaReserva = async (idSucursal,datosReserva) => {
 export const getReserva = async (idReserva) => {    
     const token = localStorage.getItem('token');
     
-    const response = await fetch(`${baseUrl}}/${idReserva}`, {
+    const response = await fetch(`${baseUrl}/${idReserva}`, {
         method: "GET", 
         headers:{
             'Content-Type': 'application/json',
@@ -36,6 +36,20 @@ export const getReservasCliente = async () => {
     
     const response = await fetch(`${baseUrl}`, {
         method: "GET", 
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+    });
+
+    return await handleResponse(response);
+}
+
+export const cancelarReserva = async (idReserva) => {    
+    const token = localStorage.getItem('token');
+    
+    const response = await fetch(`${baseUrl}/${idReserva}`, {
+        method: "PATCH", 
         headers:{
             'Content-Type': 'application/json',
             'Authorization': token

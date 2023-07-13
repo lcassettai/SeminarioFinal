@@ -80,6 +80,7 @@ router.get("/horarios/:id_sucursal",middleware.verifyToken,horariosController.ge
 router.get("/reservas",middleware.verifyToken,reservasController.getReservas);
 router.get("/reservas/:id_reserva",middleware.verifyToken,reservasController.getReserva);
 router.post("/reservas/:id_sucursal",middleware.verifyToken,reservasController.nuevaReserva);
+router.patch("/reservas/:id_reserva",middleware.verifyToken,reservasController.cancelarReserva);
 
 
 module.exports = router;
