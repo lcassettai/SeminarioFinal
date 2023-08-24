@@ -14,7 +14,7 @@ const getAllProductosSucursal = async (idSucursal) => {
                                     INNER JOIN SUCURSALES S ON P.ID_SUCURSAL = S.ID_SUCURSAL
                                     WHERE S.ID_SUCURSAL = $1
                                         AND P.ACTIVO = TRUE
-                                    ORDER BY P.DESCRIPCION`,[idSucursal]);
+                                    ORDER BY ID_CATEGORIA,P.DESCRIPCION`,[idSucursal]);
   return resultado.rows;
 };
 
