@@ -12,10 +12,10 @@ const Producto = (props) => {
     <>
       <button onClick={() => setEstadoModal(!estadoModal)}>
         <div className="shadow-md border border-gray-100 w-full mt-4 flex flex-row rounded-xl p-2">
-          <div>
+          <div className="">
             <img
               src={`${baseUrlImagen}/${props.imagen}`}
-              className="imagen-menu"
+              className="imagen-menu  aspect-square	 object-contain"
               alt=""
             />
           </div>

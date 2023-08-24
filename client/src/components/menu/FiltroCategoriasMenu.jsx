@@ -7,6 +7,8 @@ import {
   FaFish,
   FaSandwich,
 } from "react-icons/fa";
+import { GiWaterBottle } from "react-icons/gi";
+import { IoIosBeer } from "react-icons/io";
 import { GiSandwich } from "react-icons/gi"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -51,6 +53,12 @@ const FiltroCategoriasMenu = ({setOnCategoriaSeleccionada}) => {
               case "lomitos":
                 imagen = <GiSandwich />
                 break;
+              case "bebidas con alcohol":
+                  imagen = <IoIosBeer />
+                  break;
+              case "bebidas sin alcohol":
+                    imagen = <GiWaterBottle />
+                    break;    
               default:
                 break;
             }

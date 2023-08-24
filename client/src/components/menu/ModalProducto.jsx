@@ -98,8 +98,8 @@ const ModalProducto = ({
               <IoClose />
             </BotonCerrar>
             <div className="pt-8 px-6  w-full">
-              <div className="flex justify-center">
-                <img src={`${baseUrlImagen}/${imagen}`} className="imagen-menu" alt="" />
+              <div className="flex justify-center ">
+                <img src={`${baseUrlImagen}/${imagen}`} className="imagen-menu aspect-square	 object-contain" alt="" />
               </div>
               <div className="font-bold text-center text-teal-700 text-2xl mt-4 uppercase">
                 {nombre}
