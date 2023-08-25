@@ -6,7 +6,7 @@ import FooterResumen from "../../components/menu/FooterResumen";
 import FooterIniciarPedido from "../../components/menu/FooterIniciarPedido";
 import ModalDetalle from "../../components/menu/ModalDetalle";
 import { useEffect, useState } from "react";
-import { getMenu } from "../../api/restaurantes";
+import { getMenu,getRestaurante } from "../../api/restaurantes";
 
 const Menu = () => {
   const { idRestaurante } = useParams();
@@ -16,12 +16,15 @@ const Menu = () => {
   const [listadoProductosInicial, setListadoProductosInicial] = useState([]);
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([]);
   const [nuevoPedido, setNuevoPedido] = useState(false);
+  const [restaurante, setRestaurante] = useState("");
 
   useEffect(() => {
     const getMenuSucursal = async () => {
       try {
         const data = await getMenu(idRestaurante);
+        const restaurante = await getRestaurante(idRestaurante);
 
+        setRestaurante(restaurante);
         setListadoProductos(data);
         setListadoProductosInicial(data);
       } catch (error) {
@@ -102,6 +105,9 @@ const Menu = () => {
       <NavMenu text="Menu" />
       <div className="contenedor">
         <div className="mb-4">
+        <div className="text-2xl text-center mb-2 font-bold text-teal-700">
+          {restaurante ? restaurante.nombre_establecimiento : ''}
+        </div>
           <label className="form-label inline-block mb-2 text-lg text-gray-700 font-bold">
             Buscar productos :
           </label>
