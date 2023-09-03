@@ -50,7 +50,7 @@ export default function Login() {
             //Esto se puede mejorar ya que no es tan seguro 
             if(response.status === 401 || response.status === 400){
                 notificar(result.error);
-                localStorage.removeItem('token');
+                localStorage.clear();
             }else{
                 localStorage.setItem('token',result.token);
                 localStorage.removeItem('pedido');

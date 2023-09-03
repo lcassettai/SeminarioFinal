@@ -9,8 +9,7 @@ function NavMenu(props) {
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("pedido");
+    localStorage.clear();
     navigate("/login");
   };
 
